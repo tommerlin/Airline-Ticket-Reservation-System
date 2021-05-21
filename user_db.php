@@ -13,6 +13,4 @@
     } else {
         print("failed");
     }
-
-    // echo "<script>location.href = 'user.php'</script>";
 ?>
