@@ -7,15 +7,15 @@
     
     <div class="main-container">
         
-        <form action="user_db.php" method="post">
+        <form action="user_db.php" method="post" class="d-flex flex-column bd-highlight mb-3 w-25">
             <label for="fname"><b>First Name</b></label>
-            <input type="text" placeholder="First Name" name="fname" id="fname" required>
+            <input type="text" placeholder="First Name" name="fname" id="fname" required class="mb-2">
 
             <label for="lname"><b>Last Name</b></label>
-            <input type="text" placeholder="Last Name" name="lname" id="lname" required>
+            <input type="text" placeholder="Last Name" name="lname" id="lname" required class="mb-2">
 
             <label for="phno"><b>Phone Number</b></label>
-            <input type="number" placeholder="Phone Number" name="phno" id="phno" required>
+            <input type="number" placeholder="Phone Number" name="phno" id="phno" required class="mb-2">
 
             
             <button type="button" class="btn btn-primary">Sign In</button>
