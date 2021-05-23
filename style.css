@@ -1,0 +1,17 @@
+.main-container {
+  padding: 20px;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+a {
+  color: white;
+}
+
+.data-container {
+  margin: 30px;
+}
