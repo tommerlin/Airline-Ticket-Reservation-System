@@ -1,7 +1,7 @@
 <?php
 
     $username = 'root';
-    $password = 'preetimm66';
+    $password = '0vUhga';
     $db = 'airline_db';
     $host = 'localhost';
 
@@ -29,7 +29,7 @@
     //     print("Aircraft table created");
     // } else {
     //     print("Aircraft table failed");
-    }
+    // }
 
     // $airline_sql = "CREATE TABLE Airline (id int NOT NULL AUTO_INCREMENT,uuid char(36) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,airlineName varchar(255) DEFAULT NULL,category ENUM('legacy','lcc','ulcc') DEFAULT 'legacy',createdAt datetime NOT NULL,updatedAt datetime NOT NULL,PRIMARY KEY (id),UNIQUE KEY uuid (uuid)) ";
 
