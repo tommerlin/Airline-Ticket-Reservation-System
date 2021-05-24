@@ -71,17 +71,9 @@
         </form>
        
         
-        <form action="user_db.php" method="post">
-        <button type="button" class="btn btn-primary">Get travel history</button>
-        <?php 
-                $sql = "SELECT  Booking.from_ as  'from', Booking.to_ as 'to', Booking.price as 'price', Booking.travelDuration as 'duration', Booking.departureDateTime as 'dtime', Booking.ArrivalDateTime as 'atime',  User.firstName as 'fname',  User.lastName as 'lname' FROM  Booking inner join  User on  Booking.UserId =  User.id where  User.firstName = 'Steve'";
-                $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
-                echo '<p> Travel history: ';
-                while( $row = mysqli_fetch_array($result)){
-                    echo  "<p>".$row['fname']." ". $row['lname']." | ". $row['from']." | ". $row['to']." | ". $row['price']." | ". $row['duration']. $row['dtime']." | ". $row['atime']."</p>" ;
-                }
-                echo "</p> <br/>";
-            ?>
+        <form  method="post">
+        <button name="btn1" type="submit" class="btn btn-primary">Get travel history</button>
+       
         </form>
 
         <form action="user_db.php" method="post">
@@ -97,15 +89,77 @@
             <button type="button" class="btn btn-primary">Submit</button>
         </form>
         </div>
-        <?php 
+        <div class="travel-history-table">
+       
+               
+            <?php  
+            if(array_key_exists('btn1', $_POST)) {
+                echo "<p> Travel History: </p>
+                <table class= 'table '>
+                    <thead>
+                        <tr>
+                        <th scope= 'col '>User Name</th>
+                        <th scope= 'col '>From</th>
+                        <th scope= 'col '>To</th>
+                        <!-- <th scope= 'col '>Airline</th> -->
+                        <th scope= 'col '>Price</th>
+                        <th scope= 'col '>Duration</th>
+                        <th scope= 'col '>Departure Time</th>
+                        <th scope= 'col '>Arrival Time</th>
+                        </tr>
+                    </thead>
+                    <tbody> ";
+                $sql = "SELECT  Booking.from_ as  'from', Booking.to_ as 'to', Booking.price as 'price', Booking.travelDuration as 'duration', Booking.departureDateTime as 'dtime', Booking.ArrivalDateTime as 'atime',  User.firstName as 'fname',  User.lastName as 'lname' FROM  Booking inner join  User on  Booking.UserId =  User.id where  User.firstName = 'Steve'";
+                $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+                
+                while( $row = mysqli_fetch_array($result)){
+                    echo  "<tr><td>".$row['fname']." ". $row['lname']." </td><td>". $row['from']." </td><td> ". $row['to']." </td><td> ". $row['price']." </td><td> ". $row['duration']."</td><td>". $row['dtime']."</td><td>". $row['atime']."</td></tr>" ;
+                }
+                echo " </tbody>
+                </table>";
+            }
+            ?>
+            
+           
+        </div>
+
+
+
+
+
+
+
+        <div class="client-table">
+       <p> Flights from Origin to destin: </p>
+        <table class="table">
+            <thead>
+                <tr>
+                
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Airline</th>
+                <th scope="col">Price</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Departure Time</th>
+                <th scope="col">Arrival Time</th>
+                <th scope="col">Book Now</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+
+                <?php 
                 $sql = "SELECT Aircraft.from_ as 'from', Aircraft.to_  as 'to', Airline.airlineName as 'airname' FROM Aircraft inner join Airline on Aircraft.AirlineId = Airline.id where Airline.id= (select AirlineId from Aircraft where Aircraft.from_ = 'Cochin' and Aircraft.to_ = 'Canada')";
                 $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
-                echo '<p> Travel history: ';
                 while( $row = mysqli_fetch_array($result)){
-                    echo  "<p>".$row['from']." | ". $row['to']." | ". $row['airname']."</p>" ;
+                    echo  "<tr><td>".$row['from']." </td><td> ". $row['to']." </td><td> ". $row['airname']. "</td> <td><button type='submit' class='btn btn-warning'><a href='##'>Book Now</a></button></td></tr>" ;
                 }
-                echo "</p> <br/>";
             ?>
+            </tbody>
+            </table>
+        </div>
+
+       
 
     </div>
    

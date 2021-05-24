@@ -38,7 +38,7 @@ a {
 
 .client-details {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.75fr;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr;
   grid-column-gap: 40px;
   background-color: wheat;
 }
