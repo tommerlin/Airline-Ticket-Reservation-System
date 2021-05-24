@@ -5,26 +5,115 @@
 </head>
 <body>
     
-    <div class="main-container">
-        
-        
-        
-        
-        
+    <div class="main-container m-3 d-flex justify-content-around m-3">
+        <!-- <div>
         <form action="user_db.php" method="post">
-            <label for="fname"><b>First Name</b></label>
-            <input type="text" placeholder="First Name" name="fname" id="fname" required>
+           
+            <label for="hrair"><b>Total hours by airline</b></label>
+            <input type="text" placeholder="Airline Name" name="hrair" id="hrair" required>
 
-            <label for="lname"><b>Last Name</b></label>
-            <input type="text" placeholder="Last Name" name="lname" id="lname" required>
+            <label for="sdate"><b>Start Date</b></label>
+            <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
 
-            <label for="phno"><b>Phone Number</b></label>
-            <input type="number" placeholder="Phone Number" name="phno" id="phno" required>
+            <label for="edate"><b>End Date</b></label>
+            <input type="date" placeholder="End Date" name="edate" id="edate" required>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Email" name="email" id="email" required>
-            <button type="button" class="btn btn-primary">Register</button>
+    
+            <button type="button" class="btn btn-primary">Submit</button>
+            
         </form>
+        <p>Total hours: xx </p>
+        <form action="user_db.php" method="post">
+
+            <label for="lname"><b>Total hours by aircraft</b></label>
+            <input type="text" placeholder="Aircraft Name" name="lname" id="lname" required>
+            
+            <label for="sdate"><b>Start Date</b></label>
+            <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
+
+            <label for="edate"><b>End Date</b></label>
+            <input type="date" placeholder="End Date" name="edate" id="edate" required>
+
+            <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+        <p>Total hours: xx </p>
+        <form action="user_db.php" method="post">
+            <label for="name"><b>Total number of aircrafts in: </b></label>
+            <input type="text" placeholder="Airline Name" name="name" id="name" required>
+            
+            <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+        <p>Total number of aircrafts: xx </p>
+        <form action="user_db.php" method="post">
+            <label for="name"><b>Most visited city during date </b></label>
+            <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
+
+            <label for="edate"><b>and </b></label>
+            <input type="date" placeholder="End Date" name="edate" id="edate" required>
+            
+            <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+        <p>Most visited city: xx </p>
+
+        <form action="user_db.php" method="post">
+
+            <label for="lname"><b>List of passengers with destination : </b></label>
+            <input type="dest" placeholder="Destination" name="dest" id="dest" required>
+            
+            <label for="sdate"><b>between the dates</b></label>
+            <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
+
+            <label for="edate"><b>and</b></label>
+            <input type="date" placeholder="End Date" name="edate" id="edate" required>
+
+            <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+        <p>List of passengers with contact number</p>
+
+        <form action="user_db.php" method="post">
+
+            <label for="lname"><b>List of aircrafts that are not from: </b></label>
+            <input type="dest" placeholder="Destination" name="dest" id="dest" required>
+
+            <button type="button" class="btn btn-primary">Submit</button>
+            </form>
+            <p>List of aircrafts:</p>
+</div> -->
+
+    
+<div class="w-25">
+<form action="user_db.php" method="post" class="d-flex flex-column bd-highlight mb-3">
+           
+           <label for="hrair"><b>Airline Name</b></label>
+           <input type="text" placeholder="Airline Name" name="hrair" id="hrair" required class="mb-2">
+
+           <label for="lname"><b>Total hours by aircraft</b></label>
+            <input type="text" placeholder="Aircraft Name" name="lname" id="lname" required class="mb-2">
+
+           <label for="sdate"><b>Start Date</b></label>
+           <input type="date" placeholder="Start Date" name="sdate" id="sdate" required class="mb-2">
+
+           <label for="edate"><b>End Date</b></label>
+           <input type="date" placeholder="End Date" name="edate" id="edate" required class="mb-2">
+
+            <label for="lname"><b>Destination </b></label>
+            <input type="dest" placeholder="Destination" name="dest" id="dest" required class="mb-2">
+
+           <button type="button" class="btn btn-primary">Submit</button>
+           
+       </form>
+</div>
+<div class="d-flex flex-column bd-highlight mb-3">
+
+<button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+<button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
+<button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
+<button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
+<button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
+<button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
+</div>
+
+
     </div>
 
     
