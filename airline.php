@@ -1,7 +1,7 @@
 <?php
 
     $username = 'root';
-    $password = '0vUhga';
+    $password = 'preetimm66';
     $db = 'airline_db';
     $host = 'localhost';
 
@@ -37,8 +37,8 @@
         </div>
   
     
-        <!--<div class="main-container m-3 d-flex justify-content-around m-3">
-             <div>
+       <div class="main-container m-3 d-flex justify-content-around m-3">
+             <!-- <div>
             <form action="user_db.php" method="post">
             
                 <label for="hrair"><b>Total hours by airline</b></label>
@@ -109,7 +109,7 @@
 
 
     
-        <div class="w-25">
+<div class="w-25">
             <form action="" method="post" class="d-flex flex-column bd-highlight mb-3">   
                 <label for="hrair"><b>Airline Name</b></label>
                     <?php 
@@ -171,27 +171,20 @@
             ?>
         </div>
         
-        <div class="d-flex flex-column bd-highlight mb-3">
+        <div class="d-flex flex-column bd-highlight mb-3 w-25">
 
             <button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
 
 
             <button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
             <button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
-                <?php  
-                    $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-                    $row= mysqli_fetch_assoc($result);   
-                    echo '<p> Number or airlines:';
-                    echo $row['No of Aircraft'];
-                    echo "</p>";
-                ?> 
+              
             <button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
             <button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
             <button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
         </div>
 
-        <div class="d-flex flex-column bd-highlight mb-3">
+        <div class="d-flex flex-column bd-highlight mb-3 w-25 ">
 <?php 
         $sql = "SELECT SUM(Aircraft.travelHours) as 'Total Travel Hours' FROM Aircraft join Airline on Aircraft.AirlineId = Airline.id where Aircraft.AirlineId = (select id from Airline where Airline.airlineName = 'Emirates') and Aircraft.departureDateTime between '2021-01-20' and '2021-08-10'";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
@@ -247,10 +240,10 @@
         echo "</p>";
     ?> 
 
-</div>
+    </div>
 
     </div>
-    
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
