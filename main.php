@@ -5,17 +5,17 @@
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="main-container ">
         <div class="heading">
             <h3>Airline Booking System</h3>
             <div class="buttons">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-warning">
                     <a href="data.php">Add new Data</a>
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-warning">
                     <a href="airline.php">Airline Details</a>
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-warning">
                 <a href="client.php">User Details</a>
                 </button>
             </div>

@@ -6,6 +6,20 @@
 <body>
     
     <div class="main-container">
+        <div class="heading">
+            <h3>Airline Booking System</h3>
+            <div class="buttons">
+                <button type="submit" class="btn btn-warning">
+                    <a href="data.php">Add new Data</a>
+                </button>
+                <button type="submit" class="btn btn-warning">
+                    <a href="airline.php">Airline Details</a>
+                </button>
+                <button type="submit" class="btn btn-warning">
+                <a href="client.php">User Details</a>
+                </button>
+            </div>
+        </div>
         
         <form action="user_db.php" method="post" class="d-flex flex-column bd-highlight mb-3 w-25">
             <label for="fname"><b>First Name</b></label>
