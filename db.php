@@ -1,7 +1,7 @@
 <?php
 
     $username = 'root';
-    $password = '0vUhga';
+    $password = 'preetimm66';
     $db = 'airline_db';
     $host = 'localhost';
 

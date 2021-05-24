@@ -1,7 +1,7 @@
 <?php
 
     $username = 'root';
-    $password = '0vUhga';
+    $password = 'preetimm66';
     $db = 'airline_db';
     $host = 'localhost';
 
@@ -145,15 +145,23 @@
 </div>
 <div class="d-flex flex-column bd-highlight mb-3">
 
-    <button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
-    <button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
-    <button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
-    <button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
-    <button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
-    <button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
-</div>
-<div>
-    <p><p>              
+<button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+
+
+<button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
+<button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
+<?php  
+    $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
+    $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+    $row= mysqli_fetch_assoc($result);   
+    echo '<p> Number or airlines:';
+    echo $row['No of Aircraft'];
+    echo "</p>";
+?> 
+
+<button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
+<button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
+<button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
 </div>
     </div>
     </div>

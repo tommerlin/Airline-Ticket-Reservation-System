@@ -62,6 +62,18 @@
                 <label for="dest"><b>Destination</b></label>
                 <input type="text" placeholder="Destination" name="dest" id="dest" required>
 
+                <label for="phno"><b>Travel Duration</b></label>
+                <input type="number" placeholder="Travel Duration" name="traveltime" id="traveltime" required>
+
+                <label for="arrivetime"><b>Arrival Date and Time</b></label>
+                <input type="datetime-local" placeholder="Arrival Time" name="arrivetime" id="arrivetime" required>
+
+                <label for="deptime"><b>Departure Date and Time</b></label>
+                <input type="datetime-local" placeholder="Departure Time" name="deptime" id="deptime" required>
+
+                <label for="phno"><b>Price</b></label>
+                <input type="number" placeholder="Price" name="price" id="price" required>
+
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
@@ -70,13 +82,6 @@
             <h3> Create New User </h3>
             <form action="user_db.php?id=3" method="post">
             <div class="d-flex flex-column bd-highlight mb-3">
-
-                <label for="origin"><b>Origin</b></label>
-                <input type="text" placeholder="Origin" name="origin" id="origin" required>
-
-                <label for="dest"><b>Destination</b></label>
-                <input type="text" placeholder="Destination" name="dest" id="dest" required>
-
 
                 <label for="fname"><b>First Name</b></label>
                 <input type="text" placeholder="First Name" name="fname" id="fname" required>
@@ -97,18 +102,12 @@
         <div class="data-form">
             <h3> Create New Booking </h3>
             <form action="user_db.php?id=4" method="post">
-            <div class="d-flex flex-column bd-highlight mb-3">
-                <label for="fname"><b>First Name</b></label>
-                <input type="text" placeholder="First Name" name="fname" id="fname" required>
+                <div class="d-flex flex-column bd-highlight mb-3">
+                <label for="fname"><b>User Name</b></label>
+                <input type="text" placeholder="User Name" name="fname" id="fname" required>
 
-                <label for="lname"><b>Last Name</b></label>
-                <input type="text" placeholder="Last Name" name="lname" id="lname" required>
-
-                <label for="phno"><b>Phone Number</b></label>
-                <input type="number" placeholder="Phone Number" name="phno" id="phno" required>
-
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Email" name="email" id="email" required>
+                <label for="airid"><b>Aircraft Id</b></label>
+                <input type="text" placeholder="Aircraft Id" name="airid" id="airid" required>
                 </div>
                 <button type="button" class="btn btn-primary">Register</button>
             </form>
