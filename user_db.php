@@ -68,16 +68,17 @@
     }
 
     // insert user and booking data to db
-    else if ($client == "2") {
-        print($client);
+    // else if ($client == "2") {
+    //     print($client);
         
-        $sql = "INSERT INTO Aircraft VALUES (1,'".$aircraftID."', '".$aircraftName."', '".$origin."', '".$destination."', '".$capacity."','2021-05-21','2021-05-21','".$airline."')";
+    //     $sql = "INSERT INTO Aircraft VALUES (1,'".$aircraftID."', '".$aircraftName."', '".$origin."', '".$destination."', '".$capacity."','2021-05-21','2021-05-21','".$airline."')";
 
-        if(mysqli_query($link, $sql)) {
-            print("stored");
-        } else {
-            print("failed");
-        }
-    }
+    //     if(mysqli_query($link, $sql)) {
+    //         print("stored");
+    //     } else {
+    //         print("failed");
+    //     }
+    // }
     
+
 ?>
