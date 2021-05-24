@@ -97,6 +97,16 @@
             <button type="button" class="btn btn-primary">Submit</button>
         </form>
         </div>
+        <?php 
+                $sql = "SELECT Aircraft.from_ as 'from', Aircraft.to_  as 'to', Airline.airlineName as 'airname' FROM Aircraft inner join Airline on Aircraft.AirlineId = Airline.id where Airline.id= (select AirlineId from Aircraft where Aircraft.from_ = 'Cochin' and Aircraft.to_ = 'Canada')";
+                $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+                echo '<p> Travel history: ';
+                while( $row = mysqli_fetch_array($result)){
+                    echo  "<p>".$row['from']." | ". $row['to']." | ". $row['airname']."</p>" ;
+                }
+                echo "</p> <br/>";
+            ?>
+
     </div>
    
     

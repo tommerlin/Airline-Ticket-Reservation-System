@@ -1,7 +1,7 @@
 <?php
 
     $username = 'root';
-    $password = '0vUhga';
+    $password = 'preetimm66';
     $db = 'airline_db';
     $host = 'localhost';
 
@@ -214,12 +214,12 @@
             echo "</p>";
         }
         else if(array_key_exists('btn4', $_POST)) {
-            $sql = "SELECT booking.Booking.to_, count(booking.Booking.to_) as Visited FROM booking.Booking where booking.Booking.departureDateTime between '2021-04-20' and '2021-05-21' group by booking.Booking.to_ order by Visited desc limit 1;";
+            $sql = "SELECT to_ as 'city', count(to_) as 'Visited' FROM Booking group by to_ order by Visited desc limit 1;";
             $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
             $row= mysqli_fetch_assoc($result);   
-            echo '<p> Arjun will give query';
-            echo $row['No of Aircraft'];
-            echo "</p>";
+            echo '<p> Most visited city: ';
+            echo $row['city'];
+            echo "(need to set date)</p>";
         }
         else if(array_key_exists('btn5', $_POST)) {
             $sql = "SELECT  User.firstName as 'fname', User.lastName as 'lname', User.phoneNumber as 'num',  Booking.to_ as 'dest' FROM  Booking inner join  User on  Booking.UserId =  User.id where  Booking.to_ = 'London' and  Booking.departureDateTime between '2021-02-20' and '2021-07-20'";
