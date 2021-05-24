@@ -1,17 +1,37 @@
 .main-container {
   padding: 20px;
+  background: rgb(233, 233, 250);
 }
 
 .heading {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
+  padding: 20px;
+  background-color: rgb(34, 65, 236);
+}
+
+.heading h3 {
+  font-size: 2.75rem;
+  font-weight: bold;
+  color: wheat;
 }
 
 a {
+  font-size: large;
   color: white;
+  font-weight: 600;
 }
 
 .data-container {
-  margin: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 40px;
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+}
+
+.data-form {
+  background-color: rgb(85 161 243 / 15%);
+  padding: 30px;
 }
