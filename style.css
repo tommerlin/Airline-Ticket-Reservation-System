@@ -35,3 +35,16 @@ a {
   background-color: rgb(85 161 243 / 15%);
   padding: 30px;
 }
+
+.client-details {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.75fr;
+  grid-column-gap: 40px;
+  background-color: wheat;
+}
+
+.client-details form {
+  padding: 30px;
+  margin: 0 auto;
+  align-self: center;
+}
