@@ -145,25 +145,75 @@
 </div>
 <div class="d-flex flex-column bd-highlight mb-3">
 
-<button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+    <button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+    <button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
+   
 
+    <button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
+  
 
-<button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
-<button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
-<?php  
-    $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
-    $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-    $row= mysqli_fetch_assoc($result);   
-    echo '<p> Number or airlines:';
-    echo $row['No of Aircraft'];
-    echo "</p>";
-?> 
-
-<button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
-<button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
-<button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
+    <button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
+    <button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
+    <button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
 </div>
 
+<div class="d-flex flex-column bd-highlight mb-3">
+<?php 
+        $sql = "SELECT SUM(Aircraft.travelHours) as 'Total Travel Hours' FROM Aircraft join Airline on Aircraft.AirlineId = Airline.id where Aircraft.AirlineId = (select id from Airline where Airline.airlineName = 'Emirates') and Aircraft.departureDateTime between '2021-01-20' and '2021-08-10'";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        $row= mysqli_fetch_assoc($result);   
+        echo '<p> Number or hours travelled by airLine: ';
+        echo $row['Total Travel Hours'];
+        echo " hrs</p>";
+    ?>
+<?php 
+        $sql = "SELECT SUM(travelHours) as 'Aircraft Travel Hours' FROM Aircraft where aircraftName = 'Airbus A380-800' AND createdAt between '2021-05-21' and '2021-05-25' ";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        $row= mysqli_fetch_assoc($result);   
+        echo '<p> Number or hours travelled by aircraft: ';
+        echo $row['Aircraft Travel Hours'];
+        echo " hrs</p>";
+    ?>
+<?php  
+        $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        $row= mysqli_fetch_assoc($result);   
+        echo '<p> Number or airlines: ';
+        echo $row['No of Aircraft'];
+        echo "</p>";
+    ?> 
+    
+    <?php  
+        $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        $row= mysqli_fetch_assoc($result);   
+        echo '<p> Arjun will give query';
+        echo $row['No of Aircraft'];
+        echo "</p>";
+    ?> 
+
+    <?php  
+        $sql = "SELECT  User.firstName as 'fname', User.lastName as 'lname', User.phoneNumber as 'num',  Booking.to_ as 'dest' FROM  Booking inner join  User on  Booking.UserId =  User.id where  Booking.to_ = 'London' and  Booking.departureDateTime between '2021-02-20' and '2021-07-20'";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        echo '<p> List of passengers: ';
+        while( $row = mysqli_fetch_array($result)){
+            echo  "<p>".$row['fname']." ". $row['lname']." ". $row['num']." ". $row['dest']. "</p>" ;
+        }
+        echo "</p> <br/>";
+    ?> 
+
+<?php  
+        $sql = "SELECT  Aircraft.aircraftName as 'Name',  Aircraft.from_ as 'Source Location',  Aircraft.AirlineId as 'AirId', Aircraft.seatingCapacity as 'Cap' FROM  Aircraft where  Aircraft.from_ <> 'Dubai'";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+        $row= mysqli_fetch_assoc($result);   
+        echo '<p> List of aircrafts';
+        while( $row = mysqli_fetch_array($result)){
+            echo  "<p>".$row['Name']." ". $row['Source Location']." ". $row['AirId']." ". $row['Cap']. "</p>" ;
+        }
+        echo "</p>";
+    ?> 
+
+</div>
 
     </div>
     </div>
