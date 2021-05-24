@@ -1,3 +1,17 @@
+<?php
+    $username = 'root';
+    $password = 'preetimm66';
+    $db = 'airline_db';
+    $host = 'localhost';
+
+    $link = mysqli_init();
+    $success = mysqli_real_connect(
+        $link, $host, $username, $password, $db
+    );
+    if (!$success) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+?>
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -44,13 +58,30 @@
             <input type="date" placeholder="End Date" name="edate" id="edate" required class="mb-2">
             <br/>
             <button type="button" class="btn btn-primary mb-2" >Submit</button>
-            <p>Total hours traveled: </p>
+            
+            <?php 
+                $sql = "SELECT SUM(Booking.travelDuration) as 'Travel Duration' FROM Booking inner join User on Booking.UserId = User.id where Booking.UserId = (select id from  User where   User.firstName='Bruce') and   Booking.departureDateTime between '2021-02-05' and '2021-08-20'";
+                $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
+                $row= mysqli_fetch_assoc($result);   
+                echo '<p>Total hours traveled: ';
+                echo $row['Travel Duration'];
+                echo " hrs</p>";
+            ?>
             
         </form>
        
         
         <form action="user_db.php" method="post">
         <button type="button" class="btn btn-primary">Get travel history</button>
+        <?php 
+                $sql = "SELECT  Booking.from_ as  'from', Booking.to_ as 'to', Booking.price as 'price', Booking.travelDuration as 'duration', Booking.departureDateTime as 'dtime', Booking.ArrivalDateTime as 'atime',  User.firstName as 'fname',  User.lastName as 'lname' FROM  Booking inner join  User on  Booking.UserId =  User.id where  User.firstName = 'Steve'";
+                $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+                echo '<p> Travel history: ';
+                while( $row = mysqli_fetch_array($result)){
+                    echo  "<p>".$row['fname']." ". $row['lname']." | ". $row['from']." | ". $row['to']." | ". $row['price']." | ". $row['duration']. $row['dtime']." | ". $row['atime']."</p>" ;
+                }
+                echo "</p> <br/>";
+            ?>
         </form>
 
         <form action="user_db.php" method="post">
