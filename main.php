@@ -11,7 +11,7 @@
     mysqli_stmt_bind_result($sql, $result);
     mysqli_stmt_fetch($sql);  
     if($result){
-        header("Location: http://localhost/Airline-Ticket-Reservation-System/client.php?user=". urlencode(($email)));
+        header("Location: http://localhost/Airline-Ticket-Reservation-System/client.php?user=". urlencode($email));
     }
 ?>
 <html>
@@ -29,10 +29,12 @@
                     <a href="data.php">Add new Data</a>
                 </button>
                 <button type="submit" class="btn btn-warning">
-                    <a href="airline.php">Airline Details</a>
+                <?php
+                    echo '<a href="airline.php?user=",urlencode($email),">Airline Details</a>';
+                ?>
                 </button>
                 <button type="submit" class="btn btn-warning">
-                <a href="client.php">User Details</a>
+                <a href="main.php">User Details</a>
                 </button>
             </div>
         </div>

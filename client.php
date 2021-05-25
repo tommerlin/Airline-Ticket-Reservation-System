@@ -2,12 +2,12 @@
     $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
 
     $user= urldecode($_GET['user']);
-    // echo $user;
+    echo $user;
 ?>
 <html>
     <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="main-container">
@@ -18,10 +18,10 @@
                         <a href="data.php">Add new Data</a>
                     </button>
                     <button type="submit" class="btn btn-warning">
-                        <a href="airline.php">Airline Details</a>
+                    <a href="airline.php?id=<?php echo $user; ?>">Airline Details</a>
                     </button>
                     <button type="submit" class="btn btn-warning">
-                    <a href="sign_in.php">User Details</a>
+                    <a href="main.php">User Details</a>
                     </button>
                 </div>
             </div>
@@ -66,13 +66,13 @@
                 <button name="history" type="submit" class="btn btn-primary">Get travel history</button>
         
                 <label for="origin"><b>Origin</b></label>
-                <input type="text" placeholder="Origin" name="origin" id="origin" required class="mb-2">
+                <input type="text" placeholder="Origin" name="origin" id="origin" class="mb-2">
                 <label for="dest"><b>Destination</b></label>
-                <input type="text" placeholder="Destination" name="dest" id="dest" required class="mb-2">
+                <input type="text" placeholder="Destination" name="dest" id="dest" class="mb-2">
                 <label for="origin"><b>Travel Date</b></label>
-                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01" required class="mb-2">
+                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01" class="mb-2">
                 <label for="dest"><b>Return Date</b></label>
-                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01" required class="mb-2">
+                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01" class="mb-2">
                 <br/>
                 <button type="submit" name="booknow" class="btn btn-primary">Search</button>
 
@@ -111,7 +111,7 @@
 
             <div class="client-table">
             <?php 
-                if(array_key_exists('history', $_POST)) {
+                if(array_key_exists('booknow', $_POST)) {
                 $origin = $_POST["origin"];
                 $dest = $_POST["dest"];
                 $travelDate = $_POST["tdate"];
@@ -145,17 +145,10 @@
                 }
                 ?>
             </div>
-
-        
-
         </div>
     
-        
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
-    <?php
-        require_once 'db.php';
-    ?>
 </html>

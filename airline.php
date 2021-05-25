@@ -1,9 +1,9 @@
 <?php
 
-    $username = 'root';
-    $password = 'preetimm66';
-    $db = 'airline_db';
-    $host = 'localhost';
+    // $username = 'root';
+    // $password = '0vUhga';
+    // $db = 'airline_db';
+    // $host = 'localhost';
 
     // $link = mysqli_init();
     // $conn = mysqli_real_connect(
@@ -17,7 +17,9 @@
 //         echo "Failed to connect to MySQL: " . mysqli_connect_error();
 //         // exit();
 //       }
-    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
+    $user= urldecode($_GET['user']);
+    echo $user;
     
     // if(mysqli_connect_error())
     //     echo "Connection Error.";
