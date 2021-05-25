@@ -48,3 +48,18 @@ a {
   margin: 0 auto;
   align-self: center;
 }
+
+.airdata-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-column-gap: 30px;
+  padding: 30px;
+}
+.airline-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+}
+
+.input-container {
+}

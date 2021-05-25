@@ -65,7 +65,7 @@
                 
                 <button name="history" type="submit" class="btn btn-primary">Get travel history</button>
         
-                <!-- <label for="origin"><b>Origin</b></label>
+                <label for="origin"><b>Origin</b></label>
                 <input type="text" placeholder="Origin" name="origin" id="origin" required class="mb-2">
                 <label for="dest"><b>Destination</b></label>
                 <input type="text" placeholder="Destination" name="dest" id="dest" required class="mb-2">
@@ -74,7 +74,7 @@
                 <label for="dest"><b>Return Date</b></label>
                 <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01" required class="mb-2">
                 <br/>
-                <button type="button" name="" class="btn btn-primary">Submit</button> -->
+                <button type="submit" name="booknow" class="btn btn-primary">Search</button>
 
 
 
@@ -107,49 +107,44 @@
                 ?>
             </form>
             </div>
-            <div class="travel-history-table">
-        
-                
-                
-                
-            
-            </div>
 
 
+            <div class="client-table">
+            <?php 
+                if(array_key_exists('history', $_POST)) {
+                $origin = $_POST["origin"];
+                $dest = $_POST["dest"];
+                $travelDate = $_POST["tdate"];
+                $endDate = $_POST["rdate"];
 
-
-
-
-
-            <!-- <div class="client-table">
-        <p> Flights from Origin to destin: </p>
-            <table class="table">
-                <thead>
-                    <tr>
-                    
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                    <th scope="col">Airline</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Departure Time</th>
-                    <th scope="col">Arrival Time</th>
-                    <th scope="col">Book Now</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-
-                    <?php 
-                    // $sql = "SELECT Aircraft.from_ as 'from', Aircraft.to_  as 'to', Airline.airlineName as 'airname' FROM Aircraft inner join Airline on Aircraft.AirlineId = Airline.id where Airline.id= (select AirlineId from Aircraft where Aircraft.from_ = 'Cochin' and Aircraft.to_ = 'Canada')";
-                    // $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
-                    // while( $row = mysqli_fetch_array($result)){
-                    //     echo  "<tr><td>".$row['from']." </td><td> ". $row['to']." </td><td> ". $row['airname']. "</td> <td><button type='submit' class='btn btn-warning'><a href='##'>Book Now</a></button></td></tr>" ;
-                    // }
+                echo '<p> Flights from Origin to destination: </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Airline</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Departure Time</th>
+                        <th scope="col">Arrival Time</th>
+                        <th scope="col">Book Now</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                        // $sql = mysqli_prepare($conn, "SELECT booking.Aircraft.from_, booking.Aircraft.to_, booking.Airline.airlineName, booking.Aircraft.price,booking.Aircraft.travelHours,booking.Aircraft.departureDateTime, booking.Aircraft.ArrivalDateTime FROM booking.Aircraft INNER JOIN booking.Airline ON booking.Aircraft.AirlineId = booking.Airline.id WHERE booking.Airline.id= (SELECT AirlineId FROM booking.Aircraft WHERE booking.Aircraft.from_ = 'Cochin' AND booking.Aircraft.to_ = 'Canada')");
+                        // mysqli_stmt_execute($sql);
+                        // mysqli_stmt_bind_result($sql, $from, $to, $airname, $to, $price, $duration, $dtime, $atime);
+                        // // var_dump($user);
+                        // while(mysqli_stmt_fetch($sql)){
+                        //     echo  '<tr><td>'. $fname .' '. $lname .' </td><td>'. $from .' </td><td> '. $to .' </td><td> '. $price .' </td><td> '. $duration.'</td><td>'. $dtime .'</td><td>'. $atime .'</td></tr>' ;
+                        // }
+                        echo ' </tbody>
+                        </table>';
+                }
                 ?>
-                </tbody>
-                </table>
-            </div> -->
+            </div>
 
         
 

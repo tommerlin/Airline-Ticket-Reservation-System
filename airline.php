@@ -17,7 +17,7 @@
 //         echo "Failed to connect to MySQL: " . mysqli_connect_error();
 //         // exit();
 //       }
-    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
     
     // if(mysqli_connect_error())
     //     echo "Connection Error.";
@@ -48,7 +48,7 @@
         </div>
   
     
-       <div class="main-container m-3 d-flex justify-content-around m-3">
+       <div class="airdata-container">
              <!-- <div>
             <form action="user_db.php" method="post">
             
@@ -118,10 +118,10 @@
     <button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
 </div>-->
 
-<form action="" method="post" class="d-flex flex-column bd-highlight mb-3">
+    <form action="" method="post" class="airline-container">
     
-        <div class="w-25">
-            <form action="" method="post" class="d-flex flex-column bd-highlight mb-3"> 
+        <div class="input-container">
+            <form action="" method="post" class="input-container"> 
                 <label for="hrair"><b>Airline Name</b></label>
                     <?php 
                         $sql = "SELECT * FROM Airline";
@@ -132,6 +132,7 @@
                         }
                         echo "</select>";
                     ?>
+                    <br/>
                 <label for="lname"><b>Aircraft Name</b></label>
                     <?php 
                         $sql = "SELECT * FROM Aircraft";
@@ -142,12 +143,13 @@
                         }
                         echo "</select>";
                     ?>
+                     <br/>
                 <label for="sdate"><b>Start Date</b></label>
                 <input type="date" placeholder="Start Date" name="sdate" id="sdate" required value="2019-01-01" class="mb-2">
-
+                <br/>
                 <label for="edate"><b>End Date</b></label>
                 <input type="date" placeholder="End Date" name="edate" id="edate" required value="2022-01-02" class="mb-2">
-
+                <br/>
                 <label for="lname"><b>Destination </b></label>
                     <?php 
                         $sql = "SELECT * FROM Aircraft";
@@ -158,19 +160,20 @@
                         }
                         echo "</select>";
                     ?>
-        </div>
-        
-        <div class="d-flex flex-column bd-highlight mb-3 w-25">
-                <button type="submit" name="btn1" class="btn btn-primary mb-2">Get hours traveled by airline</button>
-                <button type="submit" name="btn2" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
-                <button type="submit" name="btn3" class="btn btn-primary mb-2">Get number of aircrats in airline</button>  
-                <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
-                <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
-                <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
-        </div>
+                     <br/>
+                </div>
+                
+                <div class="d-flex flex-column bd-highlight mb-3">
+                        <button type="submit" name="btn1" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+                        <button type="submit" name="btn2" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
+                        <button type="submit" name="btn3" class="btn btn-primary mb-2">Get number of aircrats in airline</button>  
+                        <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
+                        <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
+                        <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
+                </div>
         </form>
 
-        <div class="d-flex flex-column bd-highlight mb-3 w-25 ">
+        <div>
             <?php 
                 //input values
                 $airline = $_POST["airline"];
@@ -185,7 +188,7 @@
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $result);
                     mysqli_stmt_fetch($sql);  
-                    echo '<p> Number of hours travelled by airLine: ' . $result . ' hrs</p>';
+                    echo '<p> Number of hours travelled by airline "'.$airline. '": ' . $result . ' hrs</p>';
                     
                 }
                 else if(array_key_exists('btn2', $_POST)) {
@@ -193,7 +196,7 @@
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $result);
                     mysqli_stmt_fetch($sql);  
-                    echo '<p> Number or hours travelled by aircraft: ' . $result . ' hrs</p>';   
+                    echo '<p> Number or hours travelled by aircraft "'.$aircraft.'": ' . $result . ' hrs</p>';   
                     
                 }
                 else if(array_key_exists('btn3', $_POST)) {
@@ -204,28 +207,49 @@
                     echo '<p> Number of Aircrafts in ' .$airline. ' : ' . $result . '</p>';
                 }
                 else if(array_key_exists('btn4', $_POST)) {
-                    $sql = mysqli_prepare($conn, "SELECT booking.Booking.to_, COUNT(booking.Booking.to_) AS Visited FROM booking.Booking WHERE booking.Booking.departureDateTime BETWEEN '$startDate' AND '$endDate' GROUP BY booking.Booking.to_ ORDER BY Visited DESC LIMIT 1");
+      
+                    $sql = mysqli_prepare($conn,"SELECT Booking.to_ FROM Booking where  Booking.departureDateTime BETWEEN '$startDate' AND '$endDate' group by Booking.to_ order by count(Booking.to_) desc limit 1");
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $result);
                     mysqli_stmt_fetch($sql);  
-                    echo '<p> Most visited city between '.$startDate.' and '.$endDate.': ' . $result . ' hrs</p>';
+                    echo '<p> Most visited city between '.$startDate.' and '.$endDate.': '  .$result. ' </p>';
                 }
                 else if(array_key_exists('btn5', $_POST)) {
                     $sql = mysqli_prepare($conn, "SELECT  User.firstName AS 'fname', User.lastName AS 'lname', User.phoneNumber AS 'num',  Booking.to_ AS 'dest' FROM  Booking INNER JOIN  User ON  Booking.UserId =  User.id WHERE  Booking.to_ = '$destination' AND  Booking.departureDateTime BETWEEN '$startDate' AND '$endDate'");
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $fname, $lname, $phNo, $dest);
+                    
+                    echo "<p> Passengers who travelled to ".$destination." between given dates</p>";
+                    
+                    echo "<table class= 'table'>
+                    <thead><tr>
+                        <th scope= 'col'>User Name</th> <th scope= 'col '>Phone No.</th><th scope= 'col '>Destination</th>
+                        </tr> </thead>
+                    <tbody> ";
                     while(mysqli_stmt_fetch($sql)){
-                        echo '<p> Details: ' . $fname . ','.$lname.','.$phNo.','.$dest.'</p>';
+                        echo '<tr><td> ' . $fname.' '.$lname . '</td><td>'.$phNo.'</td><td>'.$dest.'</td></tr>';
                     }
+                    echo " </tbody> </table>";
+
+
+
+
                 }
                 
                 else if(array_key_exists('btn6', $_POST)) {
                     $sql = mysqli_prepare($conn, "SELECT  Aircraft.aircraftName AS 'Name',  Aircraft.from_ AS 'Source Location',  Aircraft.AirlineId AS 'AirId', Aircraft.seatingCapacity AS 'Cap' FROM  Aircraft WHERE  Aircraft.from_ <> '$destination'");
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $aircraftName, $from, $airlineId, $seat);
+                    echo "<p> Aircrafts not from the destionation: ".$destination."</p>";
+                    echo "<table class= 'table'>
+                    <thead><tr><th scope= 'col '>Airline</th>
+                        <th scope= 'col '>From</th> <th scope= 'col '>Air Id</th><th scope= 'col '>Capacity</th>
+                        </tr> </thead>
+                    <tbody> ";
                     while(mysqli_stmt_fetch($sql)){
-                        echo '<p> Details: ' . $aircraftName . ','.$from.','.$airlineId.','.$seat.'</p>';
+                        echo '<tr><td> ' . $aircraftName . '</td><td>'.$from.'</td><td>'.$airlineId.'</td><td>'.$seat.'</td></tr>';
                     }
+                    echo " </tbody> </table>";
                 }
                 
             ?>
