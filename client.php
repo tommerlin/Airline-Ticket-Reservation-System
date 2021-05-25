@@ -1,7 +1,9 @@
 <?php
     $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
     $user= urldecode($_GET['user']);
-    echo $user;
+    session_start();
+    $_SESSION["user"] = $user;
+      
 ?>
 <html>
     <head>
@@ -144,7 +146,10 @@
                     $dest = $_POST["dest"];
                     $travelDate = $_POST["tdate"];
                     $endDate = $_POST["rdate"];
-
+                    echo $origin;
+                    echo $dest;
+                    echo $travelDate;
+                    echo $endDate;
                     echo '<p> Flights from '.$origin.' to '.$dest.': </p> 
                     <table class="table">
                         <thead>
@@ -161,9 +166,12 @@
                             </tr>
                         </thead>
                         <tbody>';
-                            $sql = mysqli_prepare($conn, "SELECT Aircraft.from_, Aircraft.to_, Airline.airlineName, Aircraft.price, Aircraft.travelHours, Aircraft.departureDateTime, Aircraft.ArrivalDateTime FROM Aircraft INNER JOIN Airline ON Aircraft.AirlineId = Airline.id WHERE Airline.id = (SELECT AirlineId FROM Aircraft WHERE Aircraft.from_ = '$origin' AND Aircraft.to_ = '$dest') AND Aircraft.departureDateTime = '$travelDate' AND Aircraft.ArrivalDateTime = '$endDate';");
+                            $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$travelDate' or Aircraft.ArrivalDateTime<'$endDate') ");
                             mysqli_stmt_execute($sql);
                             mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
+
+                            // $date = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $endDate)));
+                            // echo $date;
                             
                             while(mysqli_stmt_fetch($sql)){
                             

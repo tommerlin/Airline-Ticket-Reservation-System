@@ -1,30 +1,9 @@
 <?php
-
-    // $username = 'root';
-    // $password = '0vUhga';
-    // $db = 'airline_db';
-    // $host = 'localhost';
-
-    // $link = mysqli_init();
-    // $conn = mysqli_real_connect(
-    //     $link, $host, $username, $password, $db
-    // );
-    // if (!$conn) {
-    //     die("Connection failed: " . $conn->connect_error);
-    // }
-//     $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
-//     if (mysqli_connect_errno()) {
-//         echo "Failed to connect to MySQL: " . mysqli_connect_error();
-//         // exit();
-//       }
     $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
-    $user= $_GET['user'];
+    session_start();  
+    $user = $_SESSION["user"];
     echo $user;
     
-    // if(mysqli_connect_error())
-    //     echo "Connection Error.";
-    // else
-    //     echo "Database Connection Successfully.";
 ?>
 
 <html>
