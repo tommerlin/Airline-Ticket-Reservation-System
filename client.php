@@ -1,8 +1,7 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
-
+    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
     $user= urldecode($_GET['user']);
-    echo $user;
+    
 ?>
 <html>
     <head>
@@ -10,7 +9,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="main-container">
+        <div class="main-container client-page">
             <div class="heading">
                 <h3>Airline Booking System</h3>
                 <div class="buttons">
@@ -39,8 +38,8 @@
                 <br/>
                 <button type="button" class="btn btn-primary">Sign In</button>
             </form> -->
-
-            <form action="" method="post">
+           
+            <form action="" method="post" class="client-form">
 
                 <!-- <label for="sdate"><b>Find total hours travelled between</b></label>
                 <input type="date" placeholder="Start Date" name="sdate" id="sdate" value="2019-01-01" required class="mb-2">
@@ -63,22 +62,54 @@
                         // }
                     ?>
                 
-                <button name="history" type="submit" class="btn btn-primary">Get travel history</button>
-        
+
+                
+                <div class="book-input">
                 <label for="origin"><b>Origin</b></label>
-                <input type="text" placeholder="Origin" name="origin" id="origin" class="mb-2">
-                <label for="dest"><b>Destination</b></label>
-                <input type="text" placeholder="Destination" name="dest" id="dest" class="mb-2">
-                <label for="origin"><b>Travel Date</b></label>
-                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01" class="mb-2">
-                <label for="dest"><b>Return Date</b></label>
-                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01" class="mb-2">
+                <?php 
+                        $sql = "SELECT distinct from_ as 'from' FROM Aircraft";
+                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
+                        echo '<select name="origin" id="origin" class="mb-2" required>';
+                        while( $row = mysqli_fetch_array($result)){
+                            echo "<option value='" . $row['from'] . "'>" . $row['from'] . "</option>";
+                        }
+                        echo "</select>";
+                    ?>
                 <br/>
-                <button type="submit" name="booknow" class="btn btn-primary">Search</button>
 
 
+                <!-- <input type="text" placeholder="Origin" name="origin" id="origin"  class="mb-2"> -->
+                <label for="dest"><b>Destination</b></label>
+                <!-- <input type="text" placeholder="Destination" name="dest" id="dest"  class="mb-2"> -->
+                <?php 
+                        $sql = "SELECT distinct to_ as 'to' FROM Aircraft";
+                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
+                        echo '<select name="dest" id="dest" class="mb-2" required>';
+                        while( $row = mysqli_fetch_array($result)){
+                            echo "<option value='" . $row['to'] . "'>" . $row['to'] . "</option>";
+                        }
+                        echo "</select>";
+                    ?>
+                <br/>
+                
+                
+                
+                <label for="origin"><b>Travel Date</b></label>
+                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01"  class="mb-2">
+                <label for="dest"><b>Return Date</b></label>
+            
+                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01"  class="mb-2">
+                <br/>
+                <button type="submit" name="search" class="btn btn-primary">Search</button>
+                </div>
+                <button name="history" type="submit" class="btn btn-primary history">Get travel history</button>
 
-                <?php  
+                
+            </form>
+            </div>
+
+            <div class="client-table">
+            <?php  
                 if(array_key_exists('history', $_POST)) {
                     echo '<p> Travel History: </p>
                     <table class="table">
@@ -105,19 +136,16 @@
                         </table>';
                 }
                 ?>
-            </form>
-            </div>
-
-
+</div>
             <div class="client-table">
             <?php 
-                if(array_key_exists('booknow', $_POST)) {
+                if(array_key_exists('search', $_POST)) {
                 $origin = $_POST["origin"];
                 $dest = $_POST["dest"];
                 $travelDate = $_POST["tdate"];
                 $endDate = $_POST["rdate"];
 
-                echo '<p> Flights from Origin to destination: </p>
+                echo '<p> Flights from '.$origin.' to '.$dest.': </p> 
                 <table class="table">
                     <thead>
                         <tr>
@@ -133,13 +161,16 @@
                         </tr>
                     </thead>
                     <tbody>';
-                        // $sql = mysqli_prepare($conn, "SELECT booking.Aircraft.from_, booking.Aircraft.to_, booking.Airline.airlineName, booking.Aircraft.price,booking.Aircraft.travelHours,booking.Aircraft.departureDateTime, booking.Aircraft.ArrivalDateTime FROM booking.Aircraft INNER JOIN booking.Airline ON booking.Aircraft.AirlineId = booking.Airline.id WHERE booking.Airline.id= (SELECT AirlineId FROM booking.Aircraft WHERE booking.Aircraft.from_ = 'Cochin' AND booking.Aircraft.to_ = 'Canada')");
-                        // mysqli_stmt_execute($sql);
-                        // mysqli_stmt_bind_result($sql, $from, $to, $airname, $to, $price, $duration, $dtime, $atime);
-                        // // var_dump($user);
-                        // while(mysqli_stmt_fetch($sql)){
-                        //     echo  '<tr><td>'. $fname .' '. $lname .' </td><td>'. $from .' </td><td> '. $to .' </td><td> '. $price .' </td><td> '. $duration.'</td><td>'. $dtime .'</td><td>'. $atime .'</td></tr>' ;
-                        // }
+                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$tdate' or Aircraft.ArrivalDateTime<'$rdate') ");
+                        mysqli_stmt_execute($sql);
+                        mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
+                        
+                        while(mysqli_stmt_fetch($sql)){
+                        
+                            echo  '<tr><td>'. $from .' </td><td> '. $to .' </td><td> '. $airname .' </td><td> $'. $price .' </td><td> '. $duration.' hrs </td><td>'. $dtime .'</td><td>'. $atime .'</td><td>
+                            <button type="submit" name="booknow" class="btn btn-warning">Book Now</button>
+                            </td></tr>' ;
+                        }
                         echo ' </tbody>
                         </table>';
                 }
@@ -151,4 +182,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
+    
 </html>
