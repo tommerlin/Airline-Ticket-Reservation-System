@@ -43,6 +43,9 @@
 
                 <label for="email"><b>Email</b></label>
                 <input type="text" placeholder="Email" name="email" id="email" required>
+
+                <label for="email"><b>Address</b></label>
+                <input type="text" placeholder="Address" name="address" id="address" required>
                 </div>
                 <button type="button" class="btn btn-primary">Register</button>
             </form>
