@@ -2,9 +2,7 @@
     $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
     session_start();  
     $user = $_SESSION["user"];
-    echo $user;
-
-    
+   
 ?>
 
 <html>
@@ -31,76 +29,9 @@
   
     
        <div class="airdata-container">
-             <!-- <div>
-            <form action="user_db.php" method="post">
             
-                <label for="hrair"><b>Total hours by airline</b></label>
-                <input type="text" placeholder="Airline Name" name="hrair" id="hrair" required>
 
-                <label for="sdate"><b>Start Date</b></label>
-                <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
-
-                <label for="edate"><b>End Date</b></label>
-                <input type="date" placeholder="End Date" name="edate" id="edate" required>
-
-        
-                <button type="button" class="btn btn-primary">Submit</button>
-                
-            </form>
-            <p>Total hours: xx </p>
-            <form action="user_db.php" method="post">
-
-                <label for="lname"><b>Total hours by aircraft</b></label>
-                <input type="text" placeholder="Aircraft Name" name="lname" id="lname" required>
-                
-                <label for="sdate"><b>Start Date</b></label>
-                <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
-
-                <label for="edate"><b>End Date</b></label>
-                <input type="date" placeholder="End Date" name="edate" id="edate" required>
-
-                <button type="button" class="btn btn-primary">Submit</button>
-            </form>
-            <p>Total hours: xx </p>
-            <form action="user_db.php" method="post">
-                <label for="name"><b>Total number of aircrafts in: </b></label>
-                <input type="text" placeholder="Airline Name" name="name" id="name" required>
-                
-                <button type="button" class="btn btn-primary">Submit</button>
-            </form>
-            <p>Total number of aircrafts: xx </p>
-            <form action="user_db.php" method="post">
-                <label for="name"><b>Most visited city during date </b></label>
-                <input type="date" placeholder="Start Date" name="sdate" id="sdate" required>
-
-                <label for="edate"><b>and </b></label>
-                <input type="date" placeholder="End Date" name="edate" id="edate" required>
-                
-                <button type="button" class="btn btn-primary">Submit</button>
-            </form>
-            <p>Most visited city: xx </p>
-
-            <form action="user_db.php" method="post">
-
-                <label for="lname"><b>List of passengers with destination : </b></label>
-                <input type="dest" placeholder="Destination" name="dest" id="dest" required>
-                
-                <label for="sdate"><b>between the dates</b></label>
-                <input type="date" placeholder="Start Date" name="sdate" id="sdate" required> 
-
-    <button type="button" class="btn btn-primary mb-2">Get hours traveled by airline</button>
-    <button type="button" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
-   
-
-    <button type="button" class="btn btn-primary mb-2">Get number of aircrats in airline</button>
-  
-
-    <button type="button" class="btn btn-primary mb-2">Get most visited city between the dates</button>
-    <button type="button" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
-    <button type="button" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
-</div>-->
-
-    <form action="" method="post" class="airline-container">
+        <form action="" method="post" class="airline-container">
     
         <div class="input-container">
         
@@ -150,13 +81,13 @@
                 </div>
                 
                 <div class="d-flex flex-column bd-highlight mb-3">
-                        <button type="submit" name="btn1" class="btn btn-primary mb-2">Get hours traveled by airline</button>
-                        <button type="submit" name="btn2" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
-                        <button type="submit" name="btn3" class="btn btn-primary mb-2">Get number of aircrats in airline</button>  
-                        <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
-                        <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
-                        <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
-                        <button type="submit" name="btn7" class="btn btn-primary mb-2">Hours travelled between given dates by user</button>
+                    <button type="submit" name="btn1" class="btn btn-primary mb-2">Get hours traveled by airline</button>
+                    <button type="submit" name="btn2" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
+                    <button type="submit" name="btn3" class="btn btn-primary mb-2">Get number of aircrats in airline</button>  
+                    <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
+                    <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
+                    <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
+                    <button type="submit" name="btn7" class="btn btn-primary mb-2">Hours travelled between given dates by user</button>
                 </div>
         </form>
 
@@ -217,10 +148,6 @@
                         echo '<tr><td> ' . $fname.' '.$lname . '</td><td>'.$phNo.'</td><td>'.$dest.'</td></tr>';
                     }
                     echo " </tbody> </table>";
-
-
-
-
                 }
                 
                 else if(array_key_exists('btn6', $_POST)) {
@@ -246,13 +173,9 @@
                             mysqli_stmt_bind_result($sql, $result);
                             mysqli_stmt_fetch($sql);  
                             echo '<p> Total hours traveled by current user: ' . $result . ' hrs</p>';
-                        
                 }
-                
             ?>
-
         </div>
-
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

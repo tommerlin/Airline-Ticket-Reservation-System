@@ -14,7 +14,7 @@
 .heading h3 {
   font-size: 2.75rem;
   font-weight: bold;
-  color: wheat;
+  color: #e0f6d3;
 }
 
 a {
@@ -40,7 +40,7 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1.5fr;
   grid-column-gap: 40px;
-  background-color: wheat;
+  background-color: e0f6d3;
 }
 
 .client-details form {
@@ -80,4 +80,10 @@ a {
 .client-table {
   padding: 10px 30px;
   background-color: #8bff5040;
+}
+
+.client-table p {
+  font-size: larger;
+  font-weight: bolder;
+  letter-spacing: 1px;
 }

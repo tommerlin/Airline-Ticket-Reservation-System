@@ -24,46 +24,11 @@
                     </button>
                 </div>
             </div>
-            <!-- <div class="client-details">
-            <form action="user_db.php" method="post" >
-                <label for="fname"><b>First Name</b></label>
-                <input type="text" placeholder="First Name" name="fname" id="fname" required class="mb-2">
-
-                <label for="lname"><b>Last Name</b></label>
-                <input type="text" placeholder="Last Name" name="lname" id="lname" required class="mb-2">
-
-                <label for="phno"><b>Phone Number</b></label>
-                <input type="number" placeholder="Phone Number" name="phno" id="phno" required class="mb-2">
-
-                <br/>
-                <button type="button" class="btn btn-primary">Sign In</button>
-            </form> -->
+            
            
             <form action="" method="post" class="client-form">
 
-                <!-- <label for="sdate"><b>Find total hours travelled between</b></label>
-                <input type="date" placeholder="Start Date" name="sdate" id="sdate" value="2019-01-01" required class="mb-2">
-
-                <br/>
-                <input type="date" placeholder="End Date" name="edate" id="edate" value="2022-01-01" required class="mb-2">
-                <br/>
-                <button type="submit" name="getHours" class="btn btn-primary mb-2" >Submit</button> -->
-                
-                    <?php 
-                        // if(array_key_exists('getHours', $_POST)){
-                        //     $startDate = $_POST["sdate"];
-                        //     $endDate = $_POST["edate"];
-
-                        //     $sql = mysqli_prepare($conn, "SELECT SUM(Booking.travelDuration) as 'Travel Duration' FROM Booking inner join User on Booking.UserId = User.id where Booking.UserId = (select id from  User where   User.email='$user') and   Booking.departureDateTime between '$startDate' and '$endDate'");
-                        //     mysqli_stmt_execute($sql);
-                        //     mysqli_stmt_bind_result($sql, $result);
-                        //     mysqli_stmt_fetch($sql);  
-                        //     echo '<p> Total hours traveled: ' . $result . ' hrs</p>';
-                        // }
-                    ?>
-                
-
-                
+        
                 <div class="book-input">
                 <label for="origin"><b>Origin</b></label>
                 <?php 
@@ -79,9 +44,9 @@
                 <br/>
 
 
-                <!-- <input type="text" placeholder="Origin" name="origin" id="origin"  class="mb-2"> -->
+               
                 <label for="dest"><b>Destination</b></label>
-                <!-- <input type="text" placeholder="Destination" name="dest" id="dest"  class="mb-2"> -->
+               
                 <?php 
                         $sql = "SELECT distinct to_ as 'to' FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
@@ -102,7 +67,8 @@
             
                 <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01"  class="mb-2">
                 <br/>
-                <button type="submit" name="search" class="btn btn-primary">Search</button>
+                <button type="submit" name="search" class="btn btn-primary  mb-2">Search</button>
+                <button type="submit" name="connect" class="btn btn-primary">Search with connecting flights</button>
                 </div>
                 <button name="history" type="submit" class="btn btn-primary history">Get travel history</button>
 
@@ -113,7 +79,7 @@
             <div class="client-table">
             <?php  
                 if(array_key_exists('history', $_POST)) {
-                    echo '<p> Travel History: </p>
+                    echo '<p class="client-head"> Travel History: </p>
                     <table class="table">
                         <thead>
                             <tr>
@@ -139,6 +105,53 @@
                 }
                 ?>
 </div>
+
+            <div class="client-table">  
+            <?php 
+                if(array_key_exists('connect', $_POST)) {
+                $origin = $_POST["origin"];
+                $dest = $_POST["dest"];
+                $travelDate = $_POST["tdate"];
+                $endDate = $_POST["rdate"];
+
+                echo '<p class="client-head">Connecting Flights from '.$origin.' to '.$dest.': </p> 
+                <table class="table">
+                    <thead>
+                        <tr>
+                        
+                        <th scope="col">From</th>
+                        <th scope="col">Connect</th>
+                        <th scope="col">To</th>
+                        
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Total Duration</th>
+                        <th scope="col">Departure Time</th>
+                        <th scope="col">Arrival Time</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>';
+                    $sql = mysqli_prepare($conn, "SELECT A1.from_ as 'from',A2.from_ as 'connect' ,A2.to_ as 'to', A1.price+A2.price as 'price', A1.travelHours+A2.travelHours as 'duration', A1.departureDateTime as 'dtime',  A2.ArrivalDateTime  as 'atime' FROM Aircraft A1 join Aircraft A2 on (A1.to_ = A2.from_) where A1.from_ = '$origin' and A2.to_ = '$dest' ");
+                    
+                    mysqli_stmt_execute($sql);
+                    
+                        mysqli_stmt_bind_result($sql, $from, $connect, $to, $price, $duration, $dtime, $atime);
+                        
+                        while(mysqli_stmt_fetch($sql)){
+                            
+                           
+                            echo  '<tr><td>'. $from .' </td><td> '. $connect .
+                            ' </td><td> '. $to .' </td><td> $'. $price .' </td><td> '. $duration.' hrs </td><td>'. $dtime .'</td><td>'. $atime .
+                            '</td></tr>' ;
+                        }
+                        echo ' </tbody>
+                        </table>';
+                }
+               
+                ?>
+            </div>
+
+
             <div class="client-table">
             <?php 
                 if(array_key_exists('search', $_POST)) {

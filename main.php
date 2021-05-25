@@ -13,6 +13,7 @@
     if($result){
         header("Location: http://localhost/Airline-Ticket-Reservation-System/client.php?user=". urlencode($email));
     }
+
 ?>
 <html>
 <head>
