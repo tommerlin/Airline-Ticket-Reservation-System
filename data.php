@@ -1,3 +1,8 @@
+<?php
+    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    session_start();  
+?>
+
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
@@ -113,10 +118,28 @@
                 <input type="text" placeholder="Aircraft Id" name="airid" id="airid" required>
                 
                 <label for="origin"><b>Origin</b></label>
-                <input type="text" placeholder="Origin" name="origin" id="origin" required>
+                <?php 
+                        $sql = "SELECT distinct from_ as 'from' FROM Aircraft";
+                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
+                        echo '<select name="origin" id="origin" class="mb-2" required>';
+                        echo "<option value='null'>Select</option>";
+                        while( $row = mysqli_fetch_array($result)){
+                            echo "<option value='" . $row['from'] . "'>" . $row['from'] . "</option>";
+                        }
+                        echo "</select>";
+                    ?>
 
                 <label for="dest"><b>Destination</b></label>
-                <input type="text" placeholder="Destination" name="dest" id="dest" required>
+                <?php 
+                        $sql = "SELECT distinct to_ as 'to' FROM Aircraft";
+                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
+                        echo '<select name="dest" id="dest" class="mb-2" required>';
+                        echo "<option value='select'>Select</option>";
+                        while( $row = mysqli_fetch_array($result)){
+                            echo "<option value='" . $row['to'] . "'>" . $row['to'] . "</option>";
+                        }
+                        echo "</select>";
+                    ?>
 
                 <label for="phno"><b>Travel Duration</b></label>
                 <input type="number" placeholder="Travel Duration" name="traveltime" id="traveltime" required>
