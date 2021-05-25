@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
     session_start();  
     $user = $_SESSION["user"];
     echo $user;

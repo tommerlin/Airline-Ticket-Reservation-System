@@ -45,7 +45,7 @@
     if ($client == "1") {
         print($client);
         
-        $sql = "INSERT INTO AirlineVALUES (15,'".$airlineId."', '".$airlineName."', '".$airlineCategory."','2021-05-21','2021-05-21 ')";
+        $sql = "INSERT INTO Airline VALUES (15,'".$airlineId."', '".$airlineName."', '".$airlineCategory."','2021-05-21','2021-05-21 ')";
 
         if(mysqli_query($link, $sql)) {
             print("stored");
