@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
     session_start();  
     $user = $_SESSION["user"];
     echo $user;
@@ -110,6 +110,7 @@
                         $sql = "SELECT * FROM Airline";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
                         echo '<select name="airline" id="airline" class="mb-2" required>';
+                        echo "<option value='null'>Select</option>";
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['airlineName'] . "'>" . $row['airlineName'] . "</option>";
                         }
@@ -121,6 +122,7 @@
                         $sql = "SELECT * FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
                         echo '<select name="aircraft" id="aircraft" class="mb-2" required>';
+                        echo "<option value='null'>Select</option>";
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['aircraftName'] . "'>" . $row['aircraftName'] . "</option>";
                         }
@@ -138,6 +140,7 @@
                         $sql = "SELECT * FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
                         echo '<select name="dest" id="dest" class="mb-2" required>';
+                        echo "<option value='null'>Select</option>";
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['to_'] . "'>" . $row['to_'] . "</option>";
                         }
@@ -237,14 +240,14 @@
                 }
 
                 
-                // else if(array_key_exists('btn7', $_POST)) {
-                //             $sql = mysqli_prepare($conn, "SELECT SUM(Booking.travelDuration) as 'Travel Duration' FROM Booking inner join User on Booking.UserId = User.id where Booking.UserId = (select id from  User where   User.firstName='$user') and   Booking.departureDateTime between '$startDate' and '$endDate'");
-                //             mysqli_stmt_execute($sql);
-                //             mysqli_stmt_bind_result($sql, $result);
-                //             mysqli_stmt_fetch($sql);  
-                //             echo '<p> Total hours traveled: ' . $result . ' hrs</p>';
-                //         }
-                // }
+                else if(array_key_exists('btn7', $_POST)) {
+                            $sql = mysqli_prepare($conn, "SELECT SUM(Booking.travelDuration) as 'TravelDuration' FROM Booking  where Booking.UserId = (select id from  User where User.email='$user') and   Booking.departureDateTime between '$startDate' and '$endDate'");
+                            mysqli_stmt_execute($sql);
+                            mysqli_stmt_bind_result($sql, $result);
+                            mysqli_stmt_fetch($sql);  
+                            echo '<p> Total hours traveled by current user: ' . $result . ' hrs</p>';
+                        
+                }
                 
             ?>
 
