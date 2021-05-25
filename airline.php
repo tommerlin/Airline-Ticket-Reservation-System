@@ -3,6 +3,7 @@
     session_start();  
     $user = $_SESSION["user"];
     echo $user;
+
     
 ?>
 
@@ -152,6 +153,7 @@
                         <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
                         <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
                         <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
+                        <button type="submit" name="btn7" class="btn btn-primary mb-2">Hours travelled between given dates by user</button>
                 </div>
         </form>
 
@@ -233,6 +235,16 @@
                     }
                     echo " </tbody> </table>";
                 }
+
+                
+                // else if(array_key_exists('btn7', $_POST)) {
+                //             $sql = mysqli_prepare($conn, "SELECT SUM(Booking.travelDuration) as 'Travel Duration' FROM Booking inner join User on Booking.UserId = User.id where Booking.UserId = (select id from  User where   User.firstName='$user') and   Booking.departureDateTime between '$startDate' and '$endDate'");
+                //             mysqli_stmt_execute($sql);
+                //             mysqli_stmt_bind_result($sql, $result);
+                //             mysqli_stmt_fetch($sql);  
+                //             echo '<p> Total hours traveled: ' . $result . ' hrs</p>';
+                //         }
+                // }
                 
             ?>
 
