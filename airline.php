@@ -18,7 +18,7 @@
 //         // exit();
 //       }
     $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
-    $user= urldecode($_GET['user']);
+    $user= $_GET['user'];
     echo $user;
     
     // if(mysqli_connect_error())
@@ -123,6 +123,7 @@
     <form action="" method="post" class="airline-container">
     
         <div class="input-container">
+        
             <form action="" method="post" class="input-container"> 
                 <label for="hrair"><b>Airline Name</b></label>
                     <?php 

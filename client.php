@@ -1,7 +1,7 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
     $user= urldecode($_GET['user']);
-    
+    echo $user;
 ?>
 <html>
     <head>
@@ -95,10 +95,10 @@
                 
                 
                 <label for="origin"><b>Travel Date</b></label>
-                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01"  class="mb-2">
+                <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2021-05-18"  class="mb-2">
                 <label for="dest"><b>Return Date</b></label>
             
-                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01"  class="mb-2">
+                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2021-05-18"  class="mb-2">
                 <br/>
                 <button type="submit" name="search" class="btn btn-primary">Search</button>
                 </div>
@@ -109,71 +109,71 @@
             </div>
 
             <div class="client-table">
-            <?php  
-                if(array_key_exists('history', $_POST)) {
-                    echo '<p> Travel History: </p>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope= "col" >User Name</th>
-                            <th scope= "col">From</th>
-                            <th scope= "col">To</th>
-                            <th scope= "col">Price</th>
-                            <th scope= "col">Duration</th>
-                            <th scope= "col">Departure Time</th>
-                            <th scope= "col">Arrival Time</th>
-                            </tr>
-                        </thead>
-                        <tbody> ';
-                        $sql_ = mysqli_prepare($conn, "SELECT User.firstName, User.lastName, Booking.from_ , Booking.to_ , Booking.price, Booking.travelDuration, Booking.departureDateTime , Booking.ArrivalDateTime FROM  Booking INNER JOIN  User ON  Booking.UserId =  User.id WHERE User.email = '$user'");
-                        mysqli_stmt_execute($sql_);
-                        mysqli_stmt_bind_result($sql_, $fname, $lname, $from, $to, $price, $duration, $dtime, $atime);
-                        // var_dump($user);
-                        while(mysqli_stmt_fetch($sql_)){
-                            echo  '<tr><td>'. $fname .' '. $lname .' </td><td>'. $from .' </td><td> '. $to .' </td><td> '. $price .' </td><td> '. $duration.'</td><td>'. $dtime .'</td><td>'. $atime .'</td></tr>' ;
-                        }
-                        echo ' </tbody>
-                        </table>';
-                }
+                <?php  
+                    if(array_key_exists('history', $_POST)) {
+                        echo '<p> Travel History: </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope= "col" >User Name</th>
+                                <th scope= "col">From</th>
+                                <th scope= "col">To</th>
+                                <th scope= "col">Price</th>
+                                <th scope= "col">Duration</th>
+                                <th scope= "col">Departure Time</th>
+                                <th scope= "col">Arrival Time</th>
+                                </tr>
+                            </thead>
+                            <tbody> ';
+                            $sql_ = mysqli_prepare($conn, "SELECT User.firstName, User.lastName, Booking.from_ , Booking.to_ , Booking.price, Booking.travelDuration, Booking.departureDateTime , Booking.ArrivalDateTime FROM  Booking INNER JOIN  User ON  Booking.UserId =  User.id WHERE User.email = '$user'");
+                            mysqli_stmt_execute($sql_);
+                            mysqli_stmt_bind_result($sql_, $fname, $lname, $from, $to, $price, $duration, $dtime, $atime);
+                            // var_dump($user);
+                            while(mysqli_stmt_fetch($sql_)){
+                                echo  '<tr><td>'. $fname .' '. $lname .' </td><td>'. $from .' </td><td> '. $to .' </td><td> '. $price .' </td><td> '. $duration.'</td><td>'. $dtime .'</td><td>'. $atime .'</td></tr>' ;
+                            }
+                            echo ' </tbody>
+                            </table>';
+                    }
                 ?>
-</div>
+            </div>
             <div class="client-table">
             <?php 
                 if(array_key_exists('search', $_POST)) {
-                $origin = $_POST["origin"];
-                $dest = $_POST["dest"];
-                $travelDate = $_POST["tdate"];
-                $endDate = $_POST["rdate"];
+                    $origin = $_POST["origin"];
+                    $dest = $_POST["dest"];
+                    $travelDate = $_POST["tdate"];
+                    $endDate = $_POST["rdate"];
 
-                echo '<p> Flights from '.$origin.' to '.$dest.': </p> 
-                <table class="table">
-                    <thead>
-                        <tr>
-                        
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                        <th scope="col">Airline</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Departure Time</th>
-                        <th scope="col">Arrival Time</th>
-                        <th scope="col">Book Now</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$tdate' or Aircraft.ArrivalDateTime<'$rdate') ");
-                        mysqli_stmt_execute($sql);
-                        mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
-                        
-                        while(mysqli_stmt_fetch($sql)){
-                        
-                            echo  '<tr><td>'. $from .' </td><td> '. $to .' </td><td> '. $airname .' </td><td> $'. $price .' </td><td> '. $duration.' hrs </td><td>'. $dtime .'</td><td>'. $atime .'</td><td>
-                            <button type="submit" name="booknow" class="btn btn-warning">Book Now</button>
-                            </td></tr>' ;
-                        }
-                        echo ' </tbody>
-                        </table>';
-                }
+                    echo '<p> Flights from '.$origin.' to '.$dest.': </p> 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Airline</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Departure Time</th>
+                            <th scope="col">Arrival Time</th>
+                            <th scope="col">Book Now</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+                            $sql = mysqli_prepare($conn, "SELECT Aircraft.from_, Aircraft.to_, Airline.airlineName, Aircraft.price, Aircraft.travelHours, Aircraft.departureDateTime, Aircraft.ArrivalDateTime FROM Aircraft INNER JOIN Airline ON Aircraft.AirlineId = Airline.id WHERE Airline.id = (SELECT AirlineId FROM Aircraft WHERE Aircraft.from_ = '$origin' AND Aircraft.to_ = '$dest') AND Aircraft.departureDateTime = '$travelDate' AND Aircraft.ArrivalDateTime = '$endDate';");
+                            mysqli_stmt_execute($sql);
+                            mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
+                            
+                            while(mysqli_stmt_fetch($sql)){
+                            
+                                echo  '<tr><td>'. $from .' </td><td> '. $to .' </td><td> '. $airname .' </td><td> $'. $price .' </td><td> '. $duration.' hrs </td><td>'. $dtime .'</td><td>'. $atime .'</td><td>
+                                <button type="submit" name="booknow" class="btn btn-warning">Book Now</button>
+                                </td></tr>' ;
+                            }
+                            echo ' </tbody>
+                            </table>';
+                    }
                 ?>
             </div>
         </div>
