@@ -110,55 +110,7 @@
         </div>
         
         
-        <div class="data-form">
-            <h3> Create New Booking </h3>
-            <form action="user_db.php?id=4" method="post">
-                <div class="d-flex flex-column bd-highlight mb-3">
-                <label for="fname"><b>User Name</b></label>
-                <input type="text" placeholder="User Name" name="fname" id="fname" required>
-
-                <label for="airid"><b>Aircraft Id</b></label>
-                <input type="text" placeholder="Aircraft Id" name="airid" id="airid" required>
-                
-                <label for="origin"><b>Origin</b></label>
-                <?php 
-                        $sql = "SELECT distinct from_ as 'from' FROM Aircraft";
-                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
-                        echo '<select name="origin" id="origin" class="mb-2" required>';
-                        echo "<option value='null'>Select</option>";
-                        while( $row = mysqli_fetch_array($result)){
-                            echo "<option value='" . $row['from'] . "'>" . $row['from'] . "</option>";
-                        }
-                        echo "</select>";
-                    ?>
-
-                <label for="dest"><b>Destination</b></label>
-                <?php 
-                        $sql = "SELECT distinct to_ as 'to' FROM Aircraft";
-                        $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
-                        echo '<select name="dest" id="dest" class="mb-2" required>';
-                        echo "<option value='select'>Select</option>";
-                        while( $row = mysqli_fetch_array($result)){
-                            echo "<option value='" . $row['to'] . "'>" . $row['to'] . "</option>";
-                        }
-                        echo "</select>";
-                    ?>
-
-                <label for="phno"><b>Travel Duration</b></label>
-                <input type="number" placeholder="Travel Duration" name="traveltime" id="traveltime" required>
-
-                <label for="arrivetime"><b>Arrival Date and Time</b></label>
-                <input type="datetime-local" placeholder="Arrival Time" name="arrivetime" id="arrivetime" required>
-
-                <label for="deptime"><b>Departure Date and Time</b></label>
-                <input type="datetime-local" placeholder="Departure Time" name="deptime" id="deptime" required>
-
-            
-            
-            </div>
-                <button type="button" class="btn btn-primary">Register</button>
-            </form>
-        </div>
+       
        
 
     </div>
