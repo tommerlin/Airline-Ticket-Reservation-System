@@ -126,7 +126,6 @@
                     <?php 
                         $sql = "SELECT * FROM Airline";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
-                        // echo $result[1];
                         echo '<select name="airline" id="airline" class="mb-2" required>';
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['airlineName'] . "'>" . $row['airlineName'] . "</option>";
@@ -137,7 +136,6 @@
                     <?php 
                         $sql = "SELECT * FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
-                        // echo $result[1];
                         echo '<select name="aircraft" id="aircraft" class="mb-2" required>';
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['aircraftName'] . "'>" . $row['aircraftName'] . "</option>";
@@ -154,100 +152,81 @@
                     <?php 
                         $sql = "SELECT * FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
-                        // echo $result[1];
                         echo '<select name="dest" id="dest" class="mb-2" required>';
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['to_'] . "'>" . $row['to_'] . "</option>";
                         }
                         echo "</select>";
                     ?>
-
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-            <!-- </form> -->
         </div>
         
         <div class="d-flex flex-column bd-highlight mb-3 w-25">
-            <!-- <form method="post"> -->
                 <button type="submit" name="btn1" class="btn btn-primary mb-2">Get hours traveled by airline</button>
                 <button type="submit" name="btn2" class="btn btn-primary mb-2">Get hours traveled by aircraft</button>
                 <button type="submit" name="btn3" class="btn btn-primary mb-2">Get number of aircrats in airline</button>  
                 <button type="submit" name="btn4" class="btn btn-primary mb-2">Get most visited city between the dates</button>
                 <button type="submit" name="btn5" class="btn btn-primary mb-2">Get passengers with destination between dates</button>
                 <button type="submit" name="btn6" class="btn btn-primary mb-2">Get aircrafts which does not have destination</button>
-            <!-- </form> -->
         </div>
         </form>
 
         <div class="d-flex flex-column bd-highlight mb-3 w-25 ">
             <?php 
-                // if (isset($_POST['submit'])) {
-                    $airline = $_POST["airline"];
-                    $aircraft = $_POST["aircraft"];
-                    $startDate = $_POST["sdate"];
-                    $endDate = $_POST["edate"];
-                    $destination = $_POST["dest"];
-                    // $cat = 1;
-                    // echo $aircraft;
-                // }
-                if(array_key_exists('btn1', $_POST)) {
-                    // echo $airline . 't';
-                    // $cat = "1";
-                    // $sql = mysqli_prepare($conn, "SELECT SUM(Aircraft.travelHours) FROM Aircraft join Airline on Aircraft.AirlineId = Airline.id where Aircraft.AirlineId = (SELECT id from Airline where Airline.airlineName = $airline) and Aircraft.departureDateTime between '$startDate' and '$endDate'");
-                    $sql = mysqli_prepare($conn, "SELECT SUM(Aircraft.travelHours) FROM Aircraft join Airline on Aircraft.AirlineId = Airline.id where Aircraft.AirlineId = (SELECT id FROM Airline WHERE airlineName = '$airline') AND Aircraft.departureDateTime BETWEEN '$startDate' AND '$endDate'");
-                    // mysqli_stmt_bind_param($sql, "sss", $cat);
+                //input values
+                $airline = $_POST["airline"];
+                $aircraft = $_POST["aircraft"];
+                $startDate = $_POST["sdate"];
+                $endDate = $_POST["edate"];
+                $destination = $_POST["dest"];
 
-                    // SELECT id FROM Airline WHERE airlineName = '$airline'
-                    
+                //query
+                if(array_key_exists('btn1', $_POST)) {
+                    $sql = mysqli_prepare($conn, "SELECT SUM(Aircraft.travelHours) FROM Aircraft JOIN Airline ON Aircraft.AirlineId = Airline.id WHERE Aircraft.AirlineId = (SELECT id FROM Airline WHERE airlineName = '$airline') AND Aircraft.departureDateTime BETWEEN '$startDate' AND '$endDate'");
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $result);
                     mysqli_stmt_fetch($sql);  
                     echo '<p> Number of hours travelled by airLine: ' . $result . ' hrs</p>';
-                    // var_dump($result);
                     
                 }
                 else if(array_key_exists('btn2', $_POST)) {
-                    $sql = mysqli_prepare($conn, "SELECT SUM(travelHours) FROM Aircraft where aircraftName = '$aircraft' AND createdAt between '$startDate' and '$endDate' ");
+                    $sql = mysqli_prepare($conn, "SELECT SUM(travelHours) FROM Aircraft WHERE aircraftName = '$aircraft' AND createdAt BETWEEN '$startDate' AND '$endDate' ");
                     mysqli_stmt_execute($sql);
                     mysqli_stmt_bind_result($sql, $result);
                     mysqli_stmt_fetch($sql);  
                     echo '<p> Number or hours travelled by aircraft: ' . $result . ' hrs</p>';   
                     
                 }
-                // else if(array_key_exists('btn3', $_POST)) {
-                //     $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
-                //     $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-                //     $row= mysqli_fetch_assoc($result);   
-                //     echo '<p> Number or airlines: ';
-                //     echo $row['No of Aircraft'];
-                //     echo "</p>";
-                // }
-                // else if(array_key_exists('btn4', $_POST)) {
-                //     $sql = "SELECT booking.Booking.to_, count(booking.Booking.to_) as Visited FROM booking.Booking where booking.Booking.departureDateTime between '2021-04-20' and '2021-05-21' group by booking.Booking.to_ order by Visited desc limit 1;";
-                //     $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-                //     $row= mysqli_fetch_assoc($result);   
-                //     echo '<p> Arjun will give query';
-                //     echo $row['No of Aircraft'];
-                //     echo "</p>";
-                // }
-                // else if(array_key_exists('btn5', $_POST)) {
-                //     $sql = "SELECT  User.firstName as 'fname', User.lastName as 'lname', User.phoneNumber as 'num',  Booking.to_ as 'dest' FROM  Booking inner join  User on  Booking.UserId =  User.id where  Booking.to_ = 'London' and  Booking.departureDateTime between '2021-02-20' and '2021-07-20'";
-                //     $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-                //     echo '<p> List of passengers: ';
-                //     while( $row = mysqli_fetch_array($result)){
-                //     echo  "<p>".$row['fname']." ". $row['lname']." ". $row['num']." ". $row['dest']. "</p>" ;
-                // }
-                // echo "</p> <br/>";
-                // }
-                // else if(array_key_exists('btn6', $_POST)) {
-                //     $sql = "SELECT  Aircraft.aircraftName as 'Name',  Aircraft.from_ as 'Source Location',  Aircraft.AirlineId as 'AirId', Aircraft.seatingCapacity as 'Cap' FROM  Aircraft where  Aircraft.from_ <> 'Dubai'";
-                //     $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-                //     $row= mysqli_fetch_assoc($result);   
-                //     echo '<p> List of aircrafts';
-                //     while( $row = mysqli_fetch_array($result)){
-                //         echo  "<p>".$row['Name']." ". $row['Source Location']." ". $row['AirId']." ". $row['Cap']. "</p>" ;
-                //     }
-                //     echo "</p>";
-                // }
+                else if(array_key_exists('btn3', $_POST)) {
+                    $sql = mysqli_prepare($conn, "SELECT COUNT(aircraftName) FROM Aircraft WHERE AirlineId = (SELECT id FROM Airline WHERE airlineName = '$airline' )");
+                    mysqli_stmt_execute($sql);
+                    mysqli_stmt_bind_result($sql, $result);
+                    mysqli_stmt_fetch($sql);  
+                    echo '<p> Number of Aircrafts in ' .$airline. ' : ' . $result . '</p>';
+                }
+                else if(array_key_exists('btn4', $_POST)) {
+                    $sql = mysqli_prepare($conn, "SELECT booking.Booking.to_, COUNT(booking.Booking.to_) AS Visited FROM booking.Booking WHERE booking.Booking.departureDateTime BETWEEN '$startDate' AND '$endDate' GROUP BY booking.Booking.to_ ORDER BY Visited DESC LIMIT 1");
+                    mysqli_stmt_execute($sql);
+                    mysqli_stmt_bind_result($sql, $result);
+                    mysqli_stmt_fetch($sql);  
+                    echo '<p> Most visited city between '.$startDate.' and '.$endDate.': ' . $result . ' hrs</p>';
+                }
+                else if(array_key_exists('btn5', $_POST)) {
+                    $sql = mysqli_prepare($conn, "SELECT  User.firstName AS 'fname', User.lastName AS 'lname', User.phoneNumber AS 'num',  Booking.to_ AS 'dest' FROM  Booking INNER JOIN  User ON  Booking.UserId =  User.id WHERE  Booking.to_ = '$destination' AND  Booking.departureDateTime BETWEEN '$startDate' AND '$endDate'");
+                    mysqli_stmt_execute($sql);
+                    mysqli_stmt_bind_result($sql, $fname, $lname, $phNo, $dest);
+                    while(mysqli_stmt_fetch($sql)){
+                        echo '<p> Details: ' . $fname . ','.$lname.','.$phNo.','.$dest.'</p>';
+                    }
+                }
+                
+                else if(array_key_exists('btn6', $_POST)) {
+                    $sql = mysqli_prepare($conn, "SELECT  Aircraft.aircraftName AS 'Name',  Aircraft.from_ AS 'Source Location',  Aircraft.AirlineId AS 'AirId', Aircraft.seatingCapacity AS 'Cap' FROM  Aircraft WHERE  Aircraft.from_ <> '$destination'");
+                    mysqli_stmt_execute($sql);
+                    mysqli_stmt_bind_result($sql, $aircraftName, $from, $airlineId, $seat);
+                    while(mysqli_stmt_fetch($sql)){
+                        echo '<p> Details: ' . $aircraftName . ','.$from.','.$airlineId.','.$seat.'</p>';
+                    }
+                }
                 
             ?>
 
