@@ -61,5 +61,23 @@ a {
   grid-column-gap: 30px;
 }
 
-.input-container {
+.client-form {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  padding-bottom: 15px;
+}
+
+.book-input {
+  width: 25%;
+}
+
+.history {
+  height: fit-content;
+  align-self: center;
+}
+
+.client-table {
+  padding: 10px 30px;
+  background-color: #8bff5040;
 }

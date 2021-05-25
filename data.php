@@ -16,7 +16,7 @@
                     <a href="airline.php">Airline Details</a>
                 </button>
                 <button type="submit" class="btn btn-warning">
-                <a href="sign_in.php">User Details</a>
+                <a href="main.php">User Details</a>
                 </button>
             </div>
         </div>

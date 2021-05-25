@@ -4,7 +4,7 @@
     $password = 'preetimm66';
     $db = 'airline_db';
     $host = 'localhost';
-
+    
     // $link = mysqli_init();
     // $conn = mysqli_real_connect(
     //     $link, $host, $username, $password, $db
@@ -18,7 +18,6 @@
 //         // exit();
 //       }
     $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
-    
     // if(mysqli_connect_error())
     //     echo "Connection Error.";
     // else
@@ -42,7 +41,7 @@
                     <a href="airline.php">Airline Details</a>
                 </button>
                 <button type="submit" class="btn btn-warning">
-                <a href="sign_in.php">User Details</a>
+                <a href="client.php">User Details</a>
                 </button>
             </div>
         </div>
