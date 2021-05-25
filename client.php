@@ -70,6 +70,7 @@
                         $sql = "SELECT distinct from_ as 'from' FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
                         echo '<select name="origin" id="origin" class="mb-2" required>';
+                        echo "<option value='null'>Select</option>";
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['from'] . "'>" . $row['from'] . "</option>";
                         }
@@ -85,6 +86,7 @@
                         $sql = "SELECT distinct to_ as 'to' FROM Aircraft";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($link));
                         echo '<select name="dest" id="dest" class="mb-2" required>';
+                        echo "<option value='select'>Select</option>";
                         while( $row = mysqli_fetch_array($result)){
                             echo "<option value='" . $row['to'] . "'>" . $row['to'] . "</option>";
                         }
@@ -161,7 +163,7 @@
                         </tr>
                     </thead>
                     <tbody>';
-                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$tdate' or Aircraft.ArrivalDateTime<'$rdate') ");
+                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$travelDate' or Aircraft.ArrivalDateTime<'$endDate') ");
                         mysqli_stmt_execute($sql);
                         mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
                         
