@@ -253,69 +253,6 @@
 
         </div>
 
-<<<<<<< HEAD
-=======
-        <div class="d-flex flex-column bd-highlight mb-3 w-25 ">
-    <?php 
-    // var_dump(array_key_exists('btn1', $_POST));
-        if(array_key_exists('btn1', $_POST)) {
-            $sql = "SELECT SUM(Aircraft.travelHours) as 'Total Travel Hours' FROM Aircraft join Airline on Aircraft.AirlineId = Airline.id where Aircraft.AirlineId = (select id from Airline where Airline.airlineName = 'Emirates') and Aircraft.departureDateTime between '2021-01-20' and '2021-08-10'";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            $row= mysqli_fetch_assoc($result);   
-            echo '<p> Number or hours travelled by airLine: ';
-            echo $row['Total Travel Hours'];
-            echo " hrs</p>";
-        }
-        else if(array_key_exists('btn2', $_POST)) {
-            $sql = "SELECT SUM(travelHours) as 'Aircraft Travel Hours' FROM Aircraft where aircraftName = 'Airbus A380-800' AND createdAt between '2021-05-21' and '2021-05-25' ";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            $row= mysqli_fetch_assoc($result);   
-            echo '<p> Number or hours travelled by aircraft: ';
-            echo $row['Aircraft Travel Hours'];
-            echo " hrs</p>";
-        }
-        else if(array_key_exists('btn3', $_POST)) {
-            $sql = "SELECT count(aircraftName) as 'No of Aircraft' FROM Aircraft where AirlineId = (SELECT id from Airline where airlineName = 'Emirates' )";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            $row= mysqli_fetch_assoc($result);   
-            echo '<p> Number or airlines: ';
-            echo $row['No of Aircraft'];
-            echo "</p>";
-        }
-        else if(array_key_exists('btn4', $_POST)) {
-            $sql = "SELECT to_ as 'city', count(to_) as 'Visited' FROM Booking group by to_ order by Visited desc limit 1;";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            $row= mysqli_fetch_assoc($result);   
-            echo '<p> Most visited city: ';
-            echo $row['city'];
-            echo "(need to set date)</p>";
-        }
-        else if(array_key_exists('btn5', $_POST)) {
-            $sql = "SELECT  User.firstName as 'fname', User.lastName as 'lname', User.phoneNumber as 'num',  Booking.to_ as 'dest' FROM  Booking inner join  User on  Booking.UserId =  User.id where  Booking.to_ = 'London' and  Booking.departureDateTime between '2021-02-20' and '2021-07-20'";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            echo '<p> List of passengers: ';
-            while( $row = mysqli_fetch_array($result)){
-            echo  "<p>".$row['fname']." ". $row['lname']." ". $row['num']." ". $row['dest']. "</p>" ;
-        }
-        echo "</p> <br/>";
-        }
-        else if(array_key_exists('btn6', $_POST)) {
-            $sql = "SELECT  Aircraft.aircraftName as 'Name',  Aircraft.from_ as 'Source Location',  Aircraft.AirlineId as 'AirId', Aircraft.seatingCapacity as 'Cap' FROM  Aircraft where  Aircraft.from_ <> 'Dubai'";
-            $result = mysqli_query($link, $sql) or die(mysqli_error($link));   
-            $row= mysqli_fetch_assoc($result);   
-            echo '<p> List of aircrafts';
-            while( $row = mysqli_fetch_array($result)){
-                echo  "<p>".$row['Name']." ". $row['Source Location']." ". $row['AirId']." ". $row['Cap']. "</p>" ;
-            }
-            echo "</p>";
-        }
-        
-   ?>
-
-    </div>
-
-    </div>
->>>>>>> 19015bb56ee33f8769c7b887235785546fd054b2
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
