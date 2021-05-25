@@ -1,6 +1,11 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
     $user= urldecode($_GET['user']);
+    // $sql_ = mysqli_prepare($conn, "SELECT id FROM User WHERE email = '$user'");
+    // mysqli_stmt_execute($sql_);
+    // mysqli_stmt_bind_result($sql_, $userId);
+    // mysqli_stmt_fetch($sql_);
+    // echo $userId;
     
 ?>
 <html>
@@ -63,9 +68,6 @@
                 
                 <label for="origin"><b>Travel Date</b></label>
                 <input type="date" placeholder="Travel Date" name="tdate" id="tdate" value="2019-01-01"  class="mb-2">
-                <label for="dest"><b>Return Date</b></label>
-            
-                <input type="date" placeholder="Return Date" name="rdate" id="rdate" value="2022-01-01"  class="mb-2">
                 <br/>
                 <button type="submit" name="search" class="btn btn-primary  mb-2">Search</button>
                 <button type="submit" name="connect" class="btn btn-primary">Search with connecting flights</button>
@@ -176,12 +178,18 @@
                         </tr>
                     </thead>
                     <tbody>';
-                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime' FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$travelDate' or Aircraft.ArrivalDateTime<'$endDate') ");
+                        $sql = mysqli_prepare($conn, "SELECT  Aircraft.from_ as 'from',  Aircraft.to_ as 'to',  Airline.airlineName as 'airname',  Aircraft.price as 'price', Aircraft.travelHours as 'duration', Aircraft.departureDateTime as 'dtime',  Aircraft.ArrivalDateTime  as 'atime', Aircraft.AirlineId FROM  Aircraft INNER JOIN  Airline ON  Aircraft.AirlineId =  Airline.id  where  Aircraft.from_ = '$origin' and  Aircraft.to_ = '$dest' and (Aircraft.departureDateTime>'$travelDate') ");
                         mysqli_stmt_execute($sql);
-                        mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime);
+                        mysqli_stmt_bind_result($sql, $from, $to, $airname, $price, $duration, $dtime, $atime, $airlineId);
                         
                         while(mysqli_stmt_fetch($sql)){
-                        
+                            echo '<input type="text" hidden name="from" id="from" value="'. $from.'" >
+                            <input type="text" hidden name="to" id="to" value="'. $to.'" >
+                            <input type="text" hidden name="price" id="price" value="'. $price.'" >
+                            <input type="text" hidden name="duration" id="duration" value="'. $duration.'" >
+                            <input type="text" hidden name="dtime" id="dtime" value="'. $dtime.'" >
+                            <input type="text" hidden name="atime" id="atime" value="'. $atime.'" >
+                            <input type="text" hidden name="airlineId" id="airlineId" value="'. $airlineId.'" >';
                             echo  '<tr><td>'. $from .' </td><td> '. $to .' </td><td> '. $airname .' </td><td> $'. $price .' </td><td> '. $duration.' hrs </td><td>'. $dtime .'</td><td>'. $atime .'</td><td>
                             <button type="submit" name="booknow" class="btn btn-warning">Book Now</button>
                             </td></tr>' ;
@@ -190,7 +198,19 @@
                         </table>';
                 }
                 if(array_key_exists('booknow', $_POST)) {
-                    echo "hey";
+                    $from = $_POST["from"];
+                    $to = $_POST["to"];
+                    $price = $_POST["price"];
+                    $duration = $_POST["duration"];
+                    $dtime = $_POST["dtime"];
+                    $atime = $_POST["atime"];
+                    $airlineId = $_POST["airlineId"];
+
+
+                    $query = mysqli_prepare($conn, "INSERT INTO Booking(id, from_, to_, price, travelDuration, departureDateTime, ArrivalDateTime, createdAt, updatedAt, userId, AirlineId) VALUES (12, '$from', '$to', '$price', '$duration', '$dtime', '$atime',SYSDATE(),SYSDATE(), 1, '$airlineId')");
+                    mysqli_stmt_execute($query);
+
+
                 }
                 ?>
             </div>
