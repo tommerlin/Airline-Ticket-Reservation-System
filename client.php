@@ -147,13 +147,6 @@
                
                 ?>
             </div>
-            <!-- getting user ID -->
-            <?php
-                // $sql_user = mysqli_prepare($conn, "SELECT id FROM User WHERE email = '$user' ");
-                // mysqli_stmt_execute($sql_user);
-                // mysqli_stmt_bind_result($sql_user, $userId);
-                // mysqli_stmt_fetch($sql_user);
-            ?>
 
             <div class="client-table">
             <?php 

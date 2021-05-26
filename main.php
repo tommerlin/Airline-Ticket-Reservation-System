@@ -4,7 +4,6 @@
 
     $email = $_POST["email"];
     $phNo = $_POST["phno"];
-    // echo $email;
 
     $sql = mysqli_prepare($conn, "SELECT COUNT(*) FROM User WHERE email = '$email' AND phoneNumber = '$phNo'");
     mysqli_stmt_execute($sql);

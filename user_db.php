@@ -4,15 +4,7 @@
     $password = '0vUhga';
     $db = 'airline_db';
     $host = 'localhost';
-
-    // $conn = mysql_connect($host, $username, $password);
-      
-    // if(! $conn ) {
-    // die('Could not connect: ' . mysql_error());
-    // }
-    // else{
-    //     print("succ");
-    // }
+    
     $link = mysqli_init();
     $success = mysqli_real_connect(
         $link, $host, $username, $password, $db
@@ -20,9 +12,9 @@
     if (!$success) {
         die("Connection failed: " . $conn->connect_error);
     }
-    else {
-        print("success");
-    }
+    // else {
+    //     print("success");
+    // }
 
     $client = $_REQUEST['id']; 
 
@@ -53,40 +45,37 @@
     
     // insert airline data to db
     if ($client == "1") {
-        print($client);
         
         $sql = "INSERT INTO Airline(id,airlineName, category, createdAt,updatedAt) VALUES ('".$airlineId."', '".$airlineName."', '".$airlineCategory."','2021-05-21','2021-05-21 ')";
 
         if(mysqli_query($link, $sql)) {
-            print("stored");
+            echo "<script>alert('Airline added successfully');</script>";
         } else {
-            print("failed");
+            echo "<script>alert('failed');</script>";
         }
     }
 
     // insert aircraft data to db
     else if ($client == "2") {
-        print($client);
         
         $sql = "INSERT INTO Aircraft(id, 	aircraftName ,from_,to_,seatingCapacity,createdAt,updatedAt,AirlineId,travelHours,departureDateTime,ArrivalDateTime, price ) VALUES ('".$aircraftID."', '".$aircraftName."', '".$origin."', '".$destination."', '".$capacity."',SYSDATE(),SYSDATE(),'".$airline."','".$traveltime."','".$deptime."','".$arrivetime."','".$price."')";
 
         if(mysqli_query($link, $sql)) {
-            print("stored");
+            echo "<script>alert('Aircraft added successfully');</script>";
         } else {
-            print("failed");
+            echo "<script>alert('failed');</script>";
         }
     }
 
     // insert user data to db
     else if ($client == "3") {
-        print($client);
         
-        $sql = "INSERT INTO User(id,firstName,lastName,phoneNumber,email,residentialAddress,createdAt,updatedAt) VALUES (11,'".$firstName."', '".$lastName."', '".$phNo."', '".$email."', '".$address."', SYSDATE(),SYSDATE())";
+        $sql = "INSERT INTO User(id,firstName,lastName,phoneNumber,email,residentialAddress,createdAt,updatedAt) VALUES (15,'".$firstName."', '".$lastName."', '".$phNo."', '".$email."', '".$address."', SYSDATE(),SYSDATE())";
 
         if(mysqli_query($link, $sql)) {
-            print("stored");
+            echo "<script>alert('registration success');</script>";
         } else {
-            print("failed");
+            echo "<script>alert('registration failed');</script>";
         }
     }
     
