@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "preetimm66", "airline_db");
+    $conn = mysqli_connect("localhost", "root", "0vUhga", "airline_db");
     session_start();  
 ?>
 
@@ -30,24 +30,24 @@
     <div class="data-form">
             <h3> Create New User </h3>
             <form action="user_db.php?id=3" method="post">
-            <div class="d-flex flex-column bd-highlight mb-3">
+                <div class="d-flex flex-column bd-highlight mb-3">
 
-                <label for="fname"><b>First Name</b></label>
-                <input type="text" placeholder="First Name" name="fname" id="fname" required>
+                    <label for="fname"><b>First Name</b></label>
+                    <input type="text" placeholder="First Name" name="fname" id="fname" required>
 
-                <label for="lname"><b>Last Name</b></label>
-                <input type="text" placeholder="Last Name" name="lname" id="lname" required>
+                    <label for="lname"><b>Last Name</b></label>
+                    <input type="text" placeholder="Last Name" name="lname" id="lname" required>
 
-                <label for="phno"><b>Phone Number</b></label>
-                <input type="number" placeholder="Phone Number" name="phno" id="phno" required>
+                    <label for="phno"><b>Phone Number</b></label>
+                    <input type="text" placeholder="Phone Number" name="phno" id="phno" required>
 
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Email" name="email" id="email" required>
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Email" name="email" id="email" required>
 
-                <label for="email"><b>Address</b></label>
-                <input type="text" placeholder="Address" name="address" id="address" required>
+                    <label for="address"><b>Address</b></label>
+                    <input type="text" placeholder="Address" name="address" id="address" required>
                 </div>
-                <button type="button" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
 
@@ -80,7 +80,7 @@
                 <label for="aircname"><b>Aircraft Name</b></label>
                 <input type="text" placeholder="Aircraft Name" name="aircname" id="aircname" required>
 
-                <label for="airline"><b>Airline</b></label>
+                <label for="airline"><b>Airline ID</b></label>
                 <input type="text" placeholder="Airline" name="airline" id="airline" required>
 
                 <label for="cap"><b>Seating Capacity</b></label>
@@ -92,16 +92,16 @@
                 <label for="dest"><b>Destination</b></label>
                 <input type="text" placeholder="Destination" name="dest" id="dest" required>
 
-                <label for="phno"><b>Travel Duration</b></label>
+                <label for="traveltime"><b>Travel Duration</b></label>
                 <input type="number" placeholder="Travel Duration" name="traveltime" id="traveltime" required>
 
                 <label for="arrivetime"><b>Arrival Date and Time</b></label>
-                <input type="datetime-local" placeholder="Arrival Time" name="arrivetime" id="arrivetime" required>
+                <input type="date" placeholder="Arrival Time" name="arrivetime" id="arrivetime" required>
 
                 <label for="deptime"><b>Departure Date and Time</b></label>
-                <input type="datetime-local" placeholder="Departure Time" name="deptime" id="deptime" required>
+                <input type="date" placeholder="Departure Time" name="deptime" id="deptime" required>
 
-                <label for="phno"><b>Price</b></label>
+                <label for="price"><b>Price</b></label>
                 <input type="number" placeholder="Price" name="price" id="price" required>
 
                 </div>
